@@ -112,18 +112,20 @@ class VESC:
         if not self.service:
             return
         
-        # Wait a moment for discovery
-        time.sleep(0.5)
+        # Force immediate discovery
+        self.service.force_discovery()
         
-        # Get active VESCs
-        vescs = self.get_active_vescs()
+        # Wait for responses with shorter intervals
+        for i in range(10):  # Try for 1 second total
+            vescs = self.get_active_vescs()
+            if vescs:
+                # Use the first VESC we find
+                self.auto_discovered_vesc_id = min(vescs.keys())
+                print(f"Auto-detected VESC with ID {self.auto_discovered_vesc_id}")
+                return
+            time.sleep(0.1)  # Check every 100ms
         
-        if vescs:
-            # Use the first VESC we find
-            self.auto_discovered_vesc_id = min(vescs.keys())
-            print(f"Auto-detected VESC with ID {self.auto_discovered_vesc_id}")
-        else:
-            print("No VESCs detected on network")
+        print("No VESCs detected on network")
     
     def _get_vesc_id(self) -> Optional[int]:
         """Get the VESC ID to use for commands"""
@@ -174,8 +176,9 @@ class VESC:
     # Reading functions (from cache - instant response)
     
     def get_duty(self) -> float:
-        """Get current duty cycle (-1.0 to 1.0)"""
-        return self._get_cached_value('duty', 0.0)
+        """Get current duty cycle as percentage (-100.0 to 100.0)"""
+        duty_raw = self._get_cached_value('duty', 0.0)
+        return duty_raw * 100.0  # Convert to percentage
     
     def get_rpm(self) -> float:
         """Get current RPM"""
@@ -242,13 +245,19 @@ class VESC:
         Set motor duty cycle
         
         Args:
-            duty: Duty cycle (-1.0 to 1.0)
+            duty: Duty cycle as percentage (-100.0 to 100.0)
             
         Returns:
             True if command sent successfully
         """
         try:
-            can_id, data = self.protocol.create_can_set_duty(duty, self._get_vesc_id() or 0)
+            # Convert percentage to raw value (-100 to 100 becomes -1.0 to 1.0)
+            duty_raw = duty / 100.0
+            if not -1.0 <= duty_raw <= 1.0:
+                print(f"Duty cycle must be between -100 and 100, got {duty}")
+                return False
+            
+            can_id, data = self.protocol.create_can_set_duty(duty_raw, self._get_vesc_id() or 0)
             return self._send_can_command(VESCCANCommands.SET_DUTY, data)
         except Exception as e:
             print(f"Error setting duty: {e}")

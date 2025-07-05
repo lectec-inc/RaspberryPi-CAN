@@ -47,11 +47,11 @@ def main():
         # Demo 1: Duty cycle control
         print("\n1️⃣  Duty Cycle Control")
         print("   Setting 10% duty cycle for 2 seconds...")
-        vesc.set_duty(0.1)  # 10% duty cycle
+        vesc.set_duty(10.0)  # 10% duty cycle
         time.sleep(2)
         
         print("   Setting -5% duty cycle (reverse) for 2 seconds...")
-        vesc.set_duty(-0.05)  # -5% duty cycle (reverse)
+        vesc.set_duty(-5.0)  # -5% duty cycle (reverse)
         time.sleep(2)
         
         print("   Stopping motor...")
@@ -89,7 +89,7 @@ def main():
         print("\n4️⃣  Reading Values During Operation")
         print("   Starting motor and reading values for 5 seconds...")
         
-        vesc.set_duty(0.05)  # 5% duty cycle
+        vesc.set_duty(5.0)  # 5% duty cycle
         
         for i in range(10):  # Read for 5 seconds (0.5s intervals)
             data = vesc.get_all_data()

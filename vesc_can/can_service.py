@@ -197,21 +197,23 @@ class VESCCANService:
     def _handle_ping(self, sender_node_id: int, message: CANMessage):
         """Handle ping message"""
         try:
-            # Check if ping is for us
-            should_respond = self.node_manager.handle_can_message(
-                message.arbitration_id, 
-                message.data
-            )
+            my_node_id = self.node_manager.get_node_id()
+            
+            # Always respond to broadcast pings (sent to node 0) or pings directed at us
+            should_respond = (sender_node_id == 0 or 
+                            len(message.data) == 0 or  # Broadcast ping
+                            my_node_id in message.data)  # Targeted ping
             
             if should_respond:
-                # Send pong response
-                my_node_id = self.node_manager.get_node_id()
+                # Send pong response with our node ID
                 pong_id, pong_data = self.protocol.create_can_pong(my_node_id)
                 
                 self.can_interface.send_message(pong_id, pong_data)
                 
                 self.stats['ping_received'] += 1
                 self.stats['pong_sent'] += 1
+                
+                print(f"Responded to ping from node {sender_node_id} with pong from node {my_node_id}")
             
         except Exception as e:
             self._handle_error(e)
