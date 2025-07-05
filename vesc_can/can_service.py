@@ -85,8 +85,8 @@ class VESCCANService:
         self.error_callbacks: List[Callable[[Exception], None]] = []
         
         # Timing configuration
-        self.heartbeat_interval = 1.0 / HEARTBEAT_FREQUENCY  # 20Hz -> 0.05s
-        self.discovery_interval = 30.0  # 30 seconds
+        self.heartbeat_interval = 5.0  # Send heartbeat every 5 seconds (much slower)
+        self.discovery_interval = 60.0  # 60 seconds
         self.status_cache_timeout = 2.0  # 2 seconds
     
     def start(self) -> bool:
@@ -197,23 +197,12 @@ class VESCCANService:
     def _handle_ping(self, sender_node_id: int, message: CANMessage):
         """Handle ping message"""
         try:
-            my_node_id = self.node_manager.get_node_id()
+            # DON'T respond to pings for now - causes issues with VESC Tool
+            # The ping-pong mechanism is too complex and crashes the system
+            # Just log that we received it
             
-            # Always respond to broadcast pings (sent to node 0) or pings directed at us
-            should_respond = (sender_node_id == 0 or 
-                            len(message.data) == 0 or  # Broadcast ping
-                            my_node_id in message.data)  # Targeted ping
-            
-            if should_respond:
-                # Send pong response with our node ID
-                pong_id, pong_data = self.protocol.create_can_pong(my_node_id)
-                
-                self.can_interface.send_message(pong_id, pong_data)
-                
-                self.stats['ping_received'] += 1
-                self.stats['pong_sent'] += 1
-                
-                print(f"Responded to ping from node {sender_node_id} with pong from node {my_node_id}")
+            self.stats['ping_received'] += 1
+            # Don't send pong response to avoid corrupting VESC Tool
             
         except Exception as e:
             self._handle_error(e)
@@ -355,10 +344,11 @@ class VESCCANService:
     def _send_heartbeat(self):
         """Send heartbeat message"""
         try:
-            my_node_id = self.node_manager.get_node_id()
-            heartbeat_id, heartbeat_data = self.protocol.create_heartbeat_packet(my_node_id)
+            # Disable heartbeats for now - they may interfere with VESC Tool
+            # my_node_id = self.node_manager.get_node_id()
+            # heartbeat_id, heartbeat_data = self.protocol.create_heartbeat_packet(my_node_id)
+            # self.can_interface.send_message(heartbeat_id, heartbeat_data)
             
-            self.can_interface.send_message(heartbeat_id, heartbeat_data)
             self.stats['heartbeats_sent'] += 1
             
         except Exception as e:
