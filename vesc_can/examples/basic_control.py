@@ -6,6 +6,9 @@ This example shows how to connect to a VESC and perform basic motor control.
 Great starting point for high school students learning VESC programming.
 """
 
+import sys
+sys.path.insert(0, '/home/pi/RaspberryPi-CAN')
+
 import vesc_can
 import time
 

@@ -6,6 +6,9 @@ This example shows how to read all available sensor data from a VESC.
 Demonstrates both fast cached data and slower on-demand data.
 """
 
+import sys
+sys.path.insert(0, '/home/pi/RaspberryPi-CAN')
+
 import vesc_can
 import time
 import json

@@ -6,6 +6,9 @@ This example provides comprehensive motor testing functionality.
 Includes safety checks, different control modes, and performance measurement.
 """
 
+import sys
+sys.path.insert(0, '/home/pi/RaspberryPi-CAN')
+
 import vesc_can
 import time
 import math
