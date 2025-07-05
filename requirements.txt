@@ -1,0 +1,28 @@
+# VESC CAN Library Requirements
+# For Raspberry Pi CAN communication with VESC motor controllers
+
+# Core CAN communication library
+python-can>=4.0.0
+
+# For better performance on Raspberry Pi
+# python-can[socketcan]>=4.0.0  # Uncomment if using socketcan specifically
+
+# Optional: For advanced CAN interface support
+# python-can[pcan]>=4.0.0       # For PEAK CAN interfaces  
+# python-can[serial]>=4.0.0     # For serial CAN adapters
+
+# System requirements (usually pre-installed on Raspberry Pi OS):
+# - can-utils (for command line CAN tools)
+# - python3-dev (for compiling native extensions if needed)
+
+# To install system dependencies on Raspberry Pi:
+# sudo apt update
+# sudo apt install can-utils python3-dev
+
+# To install this package and dependencies:
+# pip install -r requirements.txt
+
+# Optional development dependencies (uncomment if developing/testing):
+# pytest>=6.0.0                # For running tests
+# black>=22.0.0                # For code formatting  
+# pylint>=2.0.0               # For code linting
