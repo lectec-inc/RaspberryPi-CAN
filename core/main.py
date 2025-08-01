@@ -9,17 +9,18 @@ import signal
 import sys
 import threading
 from typing import Dict, Any, Optional
-from vesc_interface import VESCInterface
+from core.vesc_interface import VESCInterface
 
 
 class VESCSystemManager:
     """Main system manager for VESC CAN interface"""
     
-    def __init__(self, can_channel: str = 'can0'):
+    def __init__(self, can_channel: str = 'can0', quiet: bool = True):
         self.can_channel = can_channel
         self.interface = VESCInterface(can_channel)
         self.running = False
         self.main_thread = None
+        self.quiet = quiet  # Suppress statistics printing (default: True)
         
         # Known controllers (can be dynamically discovered)
         self.controllers: Dict[int, Dict[str, Any]] = {}
@@ -80,8 +81,8 @@ class VESCSystemManager:
                     self._update_controller_discovery()
                     last_discovery_time = current_time
                 
-                # Print statistics every 10 seconds
-                if current_time - last_stats_time >= 10.0:
+                # Print statistics every 10 seconds (unless quiet mode)
+                if not self.quiet and current_time - last_stats_time >= 10.0:
                     self._print_statistics()
                     last_stats_time = current_time
                 

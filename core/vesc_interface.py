@@ -10,8 +10,8 @@ import uuid
 from typing import Dict, Any, Optional, Callable
 from dataclasses import dataclass
 from queue import Queue, Empty
-from protocol import VESCProtocolParser
-from commands import VESCCommandEncoder
+from core.protocol import VESCProtocolParser
+from core.commands import VESCCommandEncoder
 
 
 @dataclass
@@ -229,7 +229,7 @@ class VESCInterface:
         
         Args:
             controller_id: Target controller ID
-            command_type: Type of command ('duty', 'current', 'brake', 'imu')
+            command_type: Type of command ('duty', 'current', 'brake')
             value: Command value
             callback: Optional callback function for response
             timeout: Command timeout in seconds
@@ -251,8 +251,6 @@ class VESCInterface:
                 can_id, data = self.encoder.encode_set_current(controller_id, value)
             elif command_type == 'brake':
                 can_id, data = self.encoder.encode_set_current_brake(controller_id, value)
-            elif command_type == 'imu':
-                can_id, data = self.encoder.encode_get_imu_data(controller_id, int(value))
             else:
                 raise ValueError(f"Unknown command type: {command_type}")
             

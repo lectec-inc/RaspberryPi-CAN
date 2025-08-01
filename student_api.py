@@ -6,7 +6,7 @@ High-level Python API for students to interact with VESC motor controllers.
 import time
 import threading
 from typing import Optional, Dict, Any
-from main import VESCSystemManager
+from core.main import VESCSystemManager
 
 
 class VESCController:
@@ -269,45 +269,6 @@ class VESCController:
             print(f"Error setting brake current: {e}")
             return False
     
-    def get_imu_data(self, mask: int = 0xFFFF) -> Optional[Dict[str, Any]]:
-        """
-        Get IMU data from VESC
-        
-        Args:
-            mask: Bitmask for which IMU data to retrieve
-            
-        Returns:
-            Dictionary with IMU data or None if failed
-        """
-        self._check_command_rate()
-        
-        try:
-            result = {'success': False, 'data': None}
-            event = threading.Event()
-            
-            def callback(success: bool, data: Dict[str, Any]):
-                result['success'] = success
-                result['data'] = data
-                event.set()
-            
-            self.interface.send_command(
-                self.controller_id, 
-                'imu', 
-                mask, 
-                callback=callback,
-                timeout=2.0
-            )
-            
-            # Wait for response
-            if event.wait(timeout=2.5) and result['success']:
-                return result['data']
-            else:
-                return None
-                
-        except Exception as e:
-            print(f"Error getting IMU data: {e}")
-            return None
-    
     def stop_motor(self) -> bool:
         """Stop the motor by setting duty cycle to 0"""
         return self.set_duty_cycle(0.0)
@@ -325,8 +286,8 @@ class VESCController:
 class VESCStudentAPI:
     """Main student API for VESC motor controllers"""
     
-    def __init__(self, can_channel: str = 'can0'):
-        self.system_manager = VESCSystemManager(can_channel)
+    def __init__(self, can_channel: str = 'can0', quiet: bool = True):
+        self.system_manager = VESCSystemManager(can_channel, quiet=quiet)
         self.controllers: Dict[int, VESCController] = {}
         self._started = False
     

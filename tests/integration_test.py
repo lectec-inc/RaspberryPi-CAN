@@ -6,7 +6,7 @@ Tests all components together with live VESC hardware.
 
 import time
 import sys
-from student_api import VESCStudentAPI
+from student_vesc_api import VESCStudentAPI
 
 
 def run_integration_test():
@@ -15,11 +15,11 @@ def run_integration_test():
     print("=" * 40)
     
     # Initialize API
-    api = VESCStudentAPI()
+    vesc_vesc_api = VESCStudentAPI()
     
     # Test 1: System startup
     print("\n1. Testing system startup...")
-    if not api.start():
+    if not vesc_api.start():
         print("❌ FAILED: System startup failed")
         return False
     print("✅ PASSED: System started successfully")
@@ -29,23 +29,23 @@ def run_integration_test():
     print("   Waiting for controller discovery (5 seconds)...")
     time.sleep(5.0)
     
-    controllers = api.get_connected_controllers()
+    controllers = vesc_api.get_connected_controllers()
     if not controllers:
         print("❌ FAILED: No controllers discovered")
-        api.stop()
+        vesc_api.stop()
         return False
     
     print(f"✅ PASSED: Discovered {len(controllers)} controller(s): {controllers}")
     
     # Use first controller for testing
     controller_id = controllers[0]
-    controller = api.get_controller(controller_id)
+    controller = vesc_api.get_controller(controller_id)
     
     # Test 3: Connection status
     print(f"\n3. Testing controller {controller_id} connection...")
     if not controller.is_connected():
         print("❌ FAILED: Controller not connected")
-        api.stop()
+        vesc_api.stop()
         return False
     print("✅ PASSED: Controller is connected")
     
@@ -128,7 +128,7 @@ def run_integration_test():
     
     # Test 8: System statistics
     print(f"\n8. Testing system statistics...")
-    interface = api.system_manager.get_interface()
+    interface = vesc_api.system_manager.get_interface()
     stats = interface.get_statistics()
     
     print(f"   Messages received: {stats['messages_received']}")
@@ -143,9 +143,9 @@ def run_integration_test():
     
     # Test 9: System shutdown
     print(f"\n9. Testing system shutdown...")
-    api.stop()
+    vesc_api.stop()
     
-    if not api.is_running():
+    if not vesc_api.is_running():
         print("   ✅ System shutdown successful")
         return True
     else:
@@ -159,22 +159,22 @@ def run_performance_test():
     print("Performance Test")
     print("=" * 40)
     
-    api = VESCStudentAPI()
+    vesc_api = VESCStudentAPI()
     
-    if not api.start():
+    if not vesc_api.start():
         print("❌ FAILED: System startup failed")
         return False
     
     print("Waiting for controller discovery...")
     time.sleep(5.0)
     
-    controllers = api.get_connected_controllers()
+    controllers = vesc_api.get_connected_controllers()
     if not controllers:
         print("❌ FAILED: No controllers discovered")
-        api.stop()
+        vesc_api.stop()
         return False
     
-    controller = api.get_controller(controllers[0])
+    controller = vesc_api.get_controller(controllers[0])
     
     # Performance test: measure reading speed
     print(f"Testing reading performance...")
@@ -211,7 +211,7 @@ def run_performance_test():
     print(f"   Completed 10 get_all_telemetry() calls in {total_time:.3f} seconds")
     print(f"   Rate: {10/total_time:.1f} calls/second")
     
-    api.stop()
+    vesc_api.stop()
     return True
 
 

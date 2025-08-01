@@ -5,8 +5,8 @@ Unit Tests for VESC CAN System Components
 
 import unittest
 import struct
-from protocol import VESCProtocolParser, VESCStatus1, VESCStatus2, VESCStatus3, VESCStatus4, VESCStatus5, VESCStatus6
-from commands import VESCCommandEncoder
+from core.protocol import VESCProtocolParser, VESCStatus1, VESCStatus2, VESCStatus3, VESCStatus4, VESCStatus5, VESCStatus6
+from core.commands import VESCCommandEncoder
 
 
 class TestVESCProtocolParser(unittest.TestCase):

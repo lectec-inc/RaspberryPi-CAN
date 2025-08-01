@@ -1,239 +1,296 @@
-🧠 GOAL
-Create a headless Python system that:
+# VESC Motor Controller - Python API
+
+A simple Python library that lets you **talk to** and **control** VESC motor controllers from a Raspberry Pi. Perfect for learning about electric motors, building robots, or creating your own electric vehicle projects!
+
+## What is This?
+
+This project lets you:
+- **Read information** from a VESC motor controller (like speed, temperature, battery voltage)
+- **Control the motor** safely (start, stop, set speed, brake)
+- **See live data** with graphs and dashboards
+- **Learn about electric motors** through hands-on examples
+
+Think of it like having a conversation with your motor controller - you can ask it questions ("How fast are you spinning?") and give it commands ("Speed up to 50%").
+
+## Features
+
+- **🎓 Student-Friendly** - Written for beginners, no complex setup needed
+- **📊 Real-Time Data** - See motor speed, power usage, temperatures, and more
+- **🔒 Safety First** - Built-in protections to prevent accidents
+- **📓 Learning Materials** - Complete with Jupyter notebooks and examples
+- **⚡ Ready to Use** - Works out of the box on Raspberry Pi
+
+## Quick Start Guide
 
-Continuously listens to CAN messages from a VESC.
+### Step 1: Basic Connection
+
+```python
+from student_api import VESCStudentAPI
+import time
+
+# Create API instance
+vesc_api = VESCStudentAPI()
 
-Supports sending commands and receiving specific responses without blocking.
+# Start the VESC system
+if vesc_api.start():
+    print("VESC system started successfully!")
+    
+    # Get controller for VESC ID 74 (as specified in README)
+    vesc = vesc_api.get_controller(74)
+    
+    if vesc:
+        print("Connected to VESC controller!")
+    else:
+        print("Failed to get VESC controller")
+else:
+    print("Failed to start VESC system")
+```
 
-Exposes a simple, high-level Python API that students can use to interact with the ESC without understanding CAN.
+### Step 2: Read Motor Information
+
+```python
+# Get motor information
+rpm = vesc.get_rpm()                    # How fast is the motor spinning?
+current = vesc.get_motor_current()      # How much electricity is it using?
+voltage = vesc.get_input_voltage()      # What's the battery voltage?
+temperature = vesc.get_motor_temperature()  # How hot is the motor?
 
-🧱 SYSTEM OVERVIEW
-Runtime Components
-Main Event Loop (main.py)
-Central controller that:
+print(f"Motor Speed: {rpm} RPM")
+print(f"Power Usage: {current} A")
+print(f"Battery: {voltage} V")
+print(f"Temperature: {temperature}°C")
+```
+
+### Step 3: Try the Dashboard
+
+See live data updating in real-time:
+
+```bash
+python examples/dashboard.py
+```
 
-Initializes the CAN interface.
+### Step 4: Learn with Jupyter Notebooks
 
-Continuously listens for incoming CAN messages.
+Open these notebooks to learn step-by-step:
+- **`examples/fundamentals_intro.ipynb`** - Perfect for beginners! Learn the basics
+- **`examples/basic_usage_example.ipynb`** - Simple examples to get started
+- **`examples/realtime_visualization.ipynb`** - See data as live graphs
+- **`examples/dashboard_notebook.ipynb`** - Interactive dashboard in your browser
+- **`examples/advanced_control_example.ipynb`** - Advanced features and data logging
 
-Maintains a registry of pending commands and handles responses.
+## What Can You Do? (Available Functions)
 
-Routes incoming messages to the correct handler (live stream vs response).
+### 📖 Reading Information from the VESC
 
-Reads only from the six CAN status messages (Status 1–6) broadcast at 50Hz by the VESC for real-time data.
+These functions let you **ask questions** to the VESC and get answers:
 
-These messages are parsed using the definitions and logic found in the VESC reference files:
+```python
+# 🏃 Motor Speed and Power
+vesc.get_rpm()                    # How fast is motor spinning? (RPM)
+vesc.get_motor_current()          # How much power is motor using? (Amperes)
+vesc.get_duty_cycle()             # What's the throttle setting? (0 to 100%)
 
-comm_can.c and comm_can.h
+# 🔋 Battery and Energy Information
+vesc.get_input_voltage()          # What's the battery voltage? (Volts)
+vesc.get_input_current()          # How much power from battery? (Amperes)
+vesc.get_amp_hours_consumed()     # How much energy used? (Amp Hours)
+vesc.get_amp_hours_charged()      # How much energy recovered? (Amp Hours)
+vesc.get_watt_hours_consumed()    # How much power used? (Watt Hours)
+vesc.get_watt_hours_charged()     # How much power recovered? (Watt Hours)
 
-(These files will be provided and must be referenced to verify byte structure, scale factors, and offsets.)
+# 🌡️ Temperature Monitoring (Important for Safety!)
+vesc.get_fet_temperature()        # How hot is the controller? (°C)
+vesc.get_motor_temperature()      # How hot is the motor? (°C)
 
-VESC Interface Layer (vesc_interface.py)
-Encapsulates:
+# 📊 Advanced Sensors (These may show 0 if nothing is connected)
+vesc.get_tachometer_value()       # Total rotations (like odometer)
+vesc.get_pid_position()           # Precise position control
+vesc.get_adc_voltage_ext()        # Extra sensor 1 voltage
+vesc.get_adc_voltage_ext2()       # Extra sensor 2 voltage  
+vesc.get_adc_voltage_ext3()       # Extra sensor 3 voltage
+vesc.get_servo_value()            # Remote control input
 
-Low-level CAN send/receive.
+# 🎯 Get Everything at Once (Super Convenient!)
+vesc.get_all_telemetry()          # Returns all data organized in groups
+```
 
-Command serialization/deserialization.
+### 🎮 Controlling the Motor (Be Careful!)
+
+These functions let you **give commands** to the VESC:
+
+```python
+# ⚠️ ONLY use these when it's safe for the motor to move!
+
+vesc.set_duty_cycle(0.1)          # Set speed (10% forward)
+vesc.set_duty_cycle(-0.1)         # Set speed (10% backward)  
+vesc.set_duty_cycle(0)            # STOP the motor
+
+vesc.set_current(2.0)             # Set force/torque (2 Amperes)
+vesc.set_brake_current(1.0)       # Apply regenerative braking (1 Ampere)
+```
+
+### 🔧 Getting More Information (For Advanced Users)
+
+```python
+# Show detailed system information (for debugging)
+vesc_api = VESCStudentAPI(quiet=False)
+```
+
+## How It Works (System Overview)
+
+This project has several parts that work together:
+
+- **`student_api.py`** - The main file you use (this talks to students!)
+- **`main.py`** - Manages the system and keeps everything running  
+- **`vesc_interface.py`** - Handles communication with the VESC
+- **`protocol.py`** - Understands the VESC's language (message parsing)
+- **`commands.py`** - Knows how to send motor control commands
+- **`dashboard.py`** - Creates the live data dashboard
+- **Jupyter Notebooks** - Interactive learning materials
+
+## Hardware Setup (Already Done for You!)
+
+Your Raspberry Pi comes pre-configured with:
+- **Raspberry Pi Zero 2W** - The computer that runs this code
+- **CAN Interface** - Set up to talk to VESC at 500kbps (that's the communication speed)
+- **VESC Controller** - The motor controller (ID: 74)
+- **VESC-Express ESP32** - Additional controller (ID: 2)
+
+**If you ever need to fix the CAN setup:**
+```bash
+sudo ip link set can0 down                    # Turn off CAN
+sudo ip link set can0 type can bitrate 500000 # Set speed to 500k
+sudo ip link set can0 up                      # Turn on CAN
+candump can0                                   # Watch CAN messages
+```
+
+## Testing Your Setup
+
+Make sure everything works by running these tests:
+
+```bash
+# Test individual parts
+python tests/unit_tests.py          
+
+# Test the whole system  
+python tests/integration_test.py    
+
+# See live data
+python examples/dashboard.py           
+
+# Check connections
+python examples/diagnostic_check.py
+```
+
+## 🔒 SAFETY FIRST! (Very Important!)
+
+**Before you control any motor, always remember:**
+
+### ⚠️ Safety Rules:
+1. **Make sure it's safe** - Nothing should be able to get hurt if the motor moves
+2. **Start small** - Begin with very low power settings (like 10% or less)
+3. **Know how to stop** - Always use `vesc.set_duty_cycle(0)` to stop immediately
+4. **Watch temperatures** - If things get too hot (over 80°C), stop and let them cool down
+5. **Secure the motor** - Make sure it can't move anything dangerous
+
+### 🛑 Emergency Stop:
+```python
+# Use this to stop everything immediately
+vesc.set_duty_cycle(0)      # Stop throttle
+vesc.set_current(0)         # Stop current
+vesc.set_brake_current(0)   # Stop braking
+```
 
-Pending command tracking (UUID or command ID + timestamp).
+### 🌡️ Temperature Safety:
+- **Controller over 80°C** = Stop and let it cool down
+- **Motor over 100°C** = Stop immediately and let it cool down
 
-Response timeouts and retries.
+The system has built-in safety features, but **you** are the most important safety feature!
 
-Command Encoders (commands.py)
-Only the following VESC commands require write support:
+## What's in This Project? (File Overview)
 
-setDutyCycle
+```
+RaspberryPi-CAN/
+├── 🎯 student_api.py                 # ← START HERE! Main API for students
+├── 📖 README.md                      # This file!
+│
+├── 📁 examples/                      # All example files
+│   ├── 📊 dashboard.py               # Real-time data dashboard
+│   ├── 🩺 diagnostic_check.py        # Check connections
+│   ├── 📓 fundamentals_intro.ipynb   # Perfect for beginners!
+│   ├── 📓 basic_usage_example.ipynb  # Simple examples  
+│   ├── 📓 realtime_visualization.ipynb # Live graphs and charts
+│   ├── 📓 dashboard_notebook.ipynb   # Interactive dashboard
+│   └── 📓 advanced_control_example.ipynb # Advanced features
+│
+├── 📁 core/                          # Core system files
+│   ├── 🔧 main.py                    # System manager
+│   ├── 🔧 vesc_interface.py          # CAN communication
+│   ├── 🔧 protocol.py                # Message parsing
+│   └── 🔧 commands.py                # Motor commands
+│
+├── 📁 tests/                         # Test files
+│   ├── 🧪 unit_tests.py              # Test individual functions
+│   └── 🧪 integration_test.py        # Test complete system
+│
+└── 📁 ai_camera/                     # Future AI camera files
+    └── (ready for Sony IMX500 files)
+```
 
-setCurrent
+## Learning Path (Where to Start)
 
-setCurrentBrake
+**New to electric motors?** Follow this path:
+1. 📖 Read this README (you're doing it!)
+2. 📓 Open `examples/fundamentals_intro.ipynb` - Learn the basics
+3. 📓 Try `examples/basic_usage_example.ipynb` - Simple examples
+4. 📊 Run `python examples/dashboard.py` - See live data
+5. 📓 Explore `examples/realtime_visualization.ipynb` - Cool graphs!
+6. 📓 Advanced: Try `examples/advanced_control_example.ipynb`
 
-getImuData
+**Just want to see data?** 
+- Run `python examples/dashboard.py` or open `examples/dashboard_notebook.ipynb`
 
-All other commands are ignored or unsupported.
+**Something not working?**
+- Run `python examples/diagnostic_check.py` to troubleshoot
 
-Response Parsers (protocol.py)
-Parses only:
+## How It Really Works (Technical Details)
 
-Real-time Status 1–6 data packets
+The VESC motor controller sends out information 50 times per second (that's 50Hz!) using something called "Status Messages." Think of it like the VESC is constantly broadcasting on a radio station, telling everyone what's happening with the motor.
 
-Responses from the four supported commands above
+Our Python code "listens" to this radio station and organizes all the information so you can easily ask questions like "What's the motor speed?" and get instant answers.
 
-The structure of all data parsing must be validated against comm_can.c and comm_can.h
+When you want to control the motor, our code sends special command messages back to the VESC, like tuning into the VESC's control frequency and saying "Please speed up to 20%."
 
-🔄 MAIN LOOP DESIGN
-Use a non-blocking loop.
+All of this happens through a **CAN bus** - which is like a special computer network that's really good at handling lots of messages very quickly and reliably. It's the same technology used in cars, robots, and other places where safety and speed are important.
 
-For each iteration:
+## 🚀 How to Run Examples
 
-Poll for new CAN messages.
+**✅ IMPORTANT: Always run from the main project directory!**
 
-Classify as:
+```bash
+# ✅ Correct way (from RaspberryPi-CAN/ folder):
+python examples/dashboard.py
+python examples/diagnostic_check.py
+python tests/unit_tests.py
+jupyter notebook examples/fundamentals_intro.ipynb
 
-Continuous stream → pass to telemetry handler.
+# ❌ Wrong way (don't do this):
+cd examples && python dashboard.py  # Won't work - can't find student_api
+```
 
-This includes only Status messages 1–6.
+**Why?** The examples need to import `student_api.py` from the main directory. When you run from the root directory, Python can find all the files it needs.
 
-Command response → match to pending registry.
+## Need Help?
 
-Cleanup expired commands.
+**First, try these:**
+- Run `python examples/diagnostic_check.py` to check your connections
+- Make sure the VESC is powered on
+- Check that you're using the right VESC ID (74)
 
-Telemetry messages should update a shared state object (e.g., live_data), always available to the student API.
+**Still having trouble?** Look at the error messages carefully - they usually tell you exactly what's wrong!
 
-No command-response flow should block this loop.
+**Want to learn more?** The Jupyter notebooks have tons of examples and explanations written just for students.
 
-🚩 PENDING COMMAND REGISTRY
-All commands that expect a response are stored with:
+---
 
-Timestamp
-
-Expected response ID or parser function
-
-Callback or future to resolve
-
-On matching incoming message:
-
-Call callback with decoded result
-
-Remove from registry
-
-On timeout:
-
-Log failure
-
-Optionally retry (one retry max)
-
-Remove from registry
-
-🧩 MESSAGE FILTERING
-Only accept and process messages matching CAN Status 1–6.
-
-All incoming packets must be matched against known ID ranges defined in the VESC firmware.
-
-All other messages should be ignored unless they are known responses to one of the four supported commands:
-
-setDutyCycle, setCurrent, setCurrentBrake, getImuData
-
-Unknown or out-of-spec packets should be logged in debug mode.
-
-🧑‍🎓 STUDENT-FACING API DESIGN (student_api.py)
-Purpose:
-Allow students to interact with the vehicle via safe, intuitive Python functions.
-
-Guidelines:
-No exposure to CAN, message encoding, or protocol IDs.
-
-Return clean data types (e.g., floats, strings, bools).
-
-Fail gracefully with helpful error messages.
-
-Architecture:
-All API functions must internally:
-
-Call into the vesc_interface.py send function.
-
-Optionally await a response.
-
-Return the result synchronously or via callback/future.
-
-Easily support individual read functions of  each of the following:
-
-RPM
-Motor current
-Duty cycle
-Amp-hours consumed
-Amp-hours charged
-Watt-hours consumed
-Watt-hours charged
-FET temp
-Motor temp
-Input current
-PID position
-Tachometer value
-Input voltage
-ADC voltages from channels EXT, EXT2, EXT3
-Servo value
-
-
-
-Easily support Write functions of each of the following along with any values that may be returned as a response:
-
-setDutyCycle
-setCurrent
-setCurrentBrake
-getImuData    (and display all of the individual axis data that is returned)
-
-
-Optionally confirm success by parsing the matching response packet.
-
-Advanced commands (e.g., file access, Lisp):
-
-Not supported in this version.
-
-May be added later with appropriate guards.
-
-🧪 TESTING REQUIREMENTS
-Unit tests for all student API methods.
-
-Integration tests simulating CAN message streams.
-
-Ensure runtime stability under:
-
-Heavy live stream traffic
-
-Concurrent command/response flows
-
-Lost or malformed packets
-
-📌 Runtime Environment Notes
-You are currently running on a Raspberry Pi Zero 2W with access to a VESC connected via can0 interface (500k baud CAN network).
-You can use this live hardware connection to automatically test your code via the CAN bus.
-
-To initialize the CAN interface:
-
-sudo ip link set can0 down
-sudo ip link set can0 type can bitrate 500000
-sudo ip link set can0 up
-
-To validate it's live: candump can0
-
-The VESC sends Status Messages 1–6 at 50Hz. You must decode them based on comm_can.c and comm_can.h.
-
-There are two devices already on the CAN other than the Raspberry Pi
-
-VESC ID: 74
-
-VESC-Express (ESP32): 2
-
-⚙️ AI Coding Agent Operational Guidelines
-🧠 General Behavior
-Do not make assumptions.
-If you cannot confirm behavior or data structure from a reference file, ask.
-
-Default to minimalism.
-
-Prioritize compatibility. Must run efficiently on Pi Zero 2W.
-
-🔍 Reference Handling
-Always reference comm_can.c and comm_can.h for:
-
-CAN packet format
-
-Byte offsets
-
-Unit scaling
-
-Do not decode packets unless their structure is confirmed.
-
-📬 Communication Protocol
-Never invent or assume packet formats.
-
-Implement only the confirmed CAN Status 1–6 messages and the four allowed commands.
-
-Validate response decoding with clear error reporting and fallbacks.
-
-🧪 Testing & Safety
-Never send motor/movement commands by default.
-Only allow when explicitly invoked.
-
-Use candump can0 for safe passive testing.
+**Have fun learning about electric motors! 🚗⚡**
