@@ -78,6 +78,8 @@ Open these notebooks to learn step-by-step:
 - **`examples/dashboard_notebook.ipynb`** - Interactive dashboard in your browser
 - **`examples/advanced_control_example.ipynb`** - Advanced features and data logging
 
+**📓 Important:** Each notebook has a setup cell at the top that must be run first - it configures the Python path to find the student_api.
+
 ## What Can You Do? (Available Functions)
 
 ### 📖 Reading Information from the VESC
@@ -272,13 +274,19 @@ All of this happens through a **CAN bus** - which is like a special computer net
 python examples/dashboard.py
 python examples/diagnostic_check.py
 python tests/unit_tests.py
-jupyter notebook examples/fundamentals_intro.ipynb
 
-# ❌ Wrong way (don't do this):
+# For Jupyter notebooks, you can run them from anywhere:
+jupyter notebook examples/fundamentals_intro.ipynb
+# OR
+cd examples && jupyter notebook fundamentals_intro.ipynb
+
+# ❌ Wrong way for Python files (don't do this):
 cd examples && python dashboard.py  # Won't work - can't find student_api
 ```
 
-**Why?** The examples need to import `student_api.py` from the main directory. When you run from the root directory, Python can find all the files it needs.
+**Why?** 
+- **Python files** need to import `student_api.py` from the main directory, so run them from the root
+- **Jupyter notebooks** have a setup cell that automatically configures the path, so they work from anywhere!
 
 ## Need Help?
 
