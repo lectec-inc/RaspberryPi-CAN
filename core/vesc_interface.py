@@ -223,7 +223,7 @@ class VESCInterface:
                     print(f"Error in timeout callback: {e}")
     
     def send_command(self, controller_id: int, command_type: str, value: float, 
-                    callback: Optional[Callable] = None, timeout: float = 2.0) -> str:
+                    callback: Optional[Callable] = None, timeout: float = 2.0, expect_response: bool = True) -> str:
         """
         Send a command to VESC controller
         
@@ -233,6 +233,7 @@ class VESCInterface:
             value: Command value
             callback: Optional callback function for response
             timeout: Command timeout in seconds
+            expect_response: Whether to wait for a response from VESC
             
         Returns:
             Command ID for tracking
@@ -261,20 +262,28 @@ class VESCInterface:
                 is_extended_id=True
             )
             
-            # Register pending command
-            with self.command_lock:
-                self.pending_commands[cmd_id] = PendingCommand(
-                    command_id=cmd_id,
-                    timestamp=time.time(),
-                    controller_id=controller_id,
-                    command_type=command_type,
-                    callback=callback,
-                    timeout=timeout
-                )
+            # Register pending command only if we expect a response
+            if expect_response:
+                with self.command_lock:
+                    self.pending_commands[cmd_id] = PendingCommand(
+                        command_id=cmd_id,
+                        timestamp=time.time(),
+                        controller_id=controller_id,
+                        command_type=command_type,
+                        callback=callback,
+                        timeout=timeout
+                    )
             
-            # Send message
-            self.bus.send(message)
+            # Send message with timeout to prevent blocking
+            self.bus.send(message, timeout=0.1)
             self.stats['commands_sent'] += 1
+            
+            # For fire-and-forget commands, immediately call success callback
+            if not expect_response and callback:
+                try:
+                    callback(True, {'message': 'Command sent (no response expected)'})
+                except Exception as e:
+                    print(f"Error in immediate callback: {e}")
             
             return cmd_id
             
