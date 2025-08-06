@@ -1,6 +1,8 @@
 """
+***DO NOT EDIT***
 Student API for VESC Motor Controllers
 High-level Python API for students to interact with VESC motor controllers.
+***DO NOT EDIT***
 """
 
 import time
