@@ -194,27 +194,18 @@ class VESCController:
         self._check_command_rate()
         
         try:
-            result = {'success': False}
-            event = threading.Event()
-            
-            def callback(success: bool, data: Dict[str, Any]):
-                result['success'] = success
-                result['data'] = data
-                event.set()
-            
+            # Send current command (fire-and-forget - VESC doesn't send acknowledgments)
             self.interface.send_command(
                 self.controller_id, 
                 'current', 
                 current, 
-                callback=callback,
-                timeout=2.0
+                callback=None,
+                timeout=2.0,
+                expect_response=False
             )
             
-            # Wait for response
-            if event.wait(timeout=2.5):
-                return result['success']
-            else:
-                return False
+            # Command sent successfully - VESC will apply it immediately
+            return True
                 
         except Exception as e:
             print(f"Error setting current: {e}")
@@ -236,27 +227,18 @@ class VESCController:
         self._check_command_rate()
         
         try:
-            result = {'success': False}
-            event = threading.Event()
-            
-            def callback(success: bool, data: Dict[str, Any]):
-                result['success'] = success
-                result['data'] = data
-                event.set()
-            
+            # Send brake current command (fire-and-forget - VESC doesn't send acknowledgments)
             self.interface.send_command(
                 self.controller_id, 
                 'brake', 
                 current, 
-                callback=callback,
-                timeout=2.0
+                callback=None,
+                timeout=2.0,
+                expect_response=False
             )
             
-            # Wait for response
-            if event.wait(timeout=2.5):
-                return result['success']
-            else:
-                return False
+            # Command sent successfully - VESC will apply it immediately
+            return True
                 
         except Exception as e:
             print(f"Error setting brake current: {e}")
