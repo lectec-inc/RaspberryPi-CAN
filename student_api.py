@@ -28,9 +28,10 @@ class VESCController:
             time.sleep(self._command_delay - (current_time - self._last_command_time))
         self._last_command_time = time.time()
     
-    def _get_telemetry_value(self, data_type: str, field: str) -> Optional[float]:
-        """Get a specific telemetry value"""
-        return self.interface.get_telemetry_value(self.controller_id, data_type, field)
+    def _get_telemetry_value(self, data_type: str, field: str) -> float:
+        """Get a specific telemetry value with 0.0 fallback"""
+        val = self.interface.get_telemetry_value(self.controller_id, data_type, field)
+        return val if val is not None else 0.0
     
     def _get_live_data(self) -> Dict[str, Any]:
         """Get all live data for this controller"""
@@ -38,55 +39,55 @@ class VESCController:
     
     # ==================== READ FUNCTIONS ====================
     
-    def get_rpm(self) -> Optional[float]:
+    def get_rpm(self) -> float:
         """Get motor RPM"""
         return self._get_telemetry_value('status_1', 'rpm')
     
-    def get_motor_current(self) -> Optional[float]:
+    def get_motor_current(self) -> float:
         """Get motor current in amperes"""
         return self._get_telemetry_value('status_1', 'current')
     
-    def get_duty_cycle(self) -> Optional[float]:
+    def get_duty_cycle(self) -> float:
         """Get duty cycle (-1.0 to 1.0)"""
         return self._get_telemetry_value('status_1', 'duty_cycle')
     
-    def get_amp_hours_consumed(self) -> Optional[float]:
+    def get_amp_hours_consumed(self) -> float:
         """Get amp-hours consumed"""
         return self._get_telemetry_value('status_2', 'amp_hours')
     
-    def get_amp_hours_charged(self) -> Optional[float]:
+    def get_amp_hours_charged(self) -> float:
         """Get amp-hours charged"""
         return self._get_telemetry_value('status_2', 'amp_hours_charged')
     
-    def get_watt_hours_consumed(self) -> Optional[float]:
+    def get_watt_hours_consumed(self) -> float:
         """Get watt-hours consumed"""
         return self._get_telemetry_value('status_3', 'watt_hours')
     
-    def get_watt_hours_charged(self) -> Optional[float]:
+    def get_watt_hours_charged(self) -> float:
         """Get watt-hours charged"""
         return self._get_telemetry_value('status_3', 'watt_hours_charged')
     
-    def get_fet_temperature(self) -> Optional[float]:
+    def get_fet_temperature(self) -> float:
         """Get FET temperature in Celsius"""
         return self._get_telemetry_value('status_4', 'temp_fet')
     
-    def get_motor_temperature(self) -> Optional[float]:
+    def get_motor_temperature(self) -> float:
         """Get motor temperature in Celsius"""
         return self._get_telemetry_value('status_4', 'temp_motor')
     
-    def get_input_current(self) -> Optional[float]:
+    def get_input_current(self) -> float:
         """Get input current in amperes"""
         return self._get_telemetry_value('status_4', 'current_in')
     
-    def get_pid_position(self) -> Optional[float]:
+    def get_pid_position(self) -> float:
         """Get PID position value"""
         return self._get_telemetry_value('status_4', 'pid_pos_now')
     
-    def get_tachometer_value(self) -> Optional[int]:
+    def get_tachometer_value(self) -> int:
         """Get tachometer value"""
-        return self._get_telemetry_value('status_5', 'tacho_value')
+        return int(self._get_telemetry_value('status_5', 'tacho_value'))
     
-    def get_input_voltage(self) -> Optional[float]:
+    def get_input_voltage(self) -> float:
         """Get input voltage in volts"""
         return self._get_telemetry_value('status_5', 'v_in')
     
