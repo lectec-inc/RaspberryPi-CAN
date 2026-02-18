@@ -138,17 +138,7 @@ class VESCInterface:
     def _process_message(self, message: can.Message):
         """Process incoming CAN message"""
         try:
-            # Check for COMM_GET_VALUES response via multi-packet
-            # ID = (6 << 8) | controller_id (FILL_RX_BUFFER)
-            controller_id = message.arbitration_id & 0xFF
-            packet_type = (message.arbitration_id >> 8) & 0xFF
-            
-            if packet_type == 6: # CAN_PACKET_FILL_RX_BUFFER
-                # In a production environment, we would reassemble these
-                # For this fallback, we focus on high-priority status frames
-                pass
-
-            # Standard Parse
+            # Parse the message
             parsed = self.parser.parse_message(message.arbitration_id, message.data)
             
             if parsed is None:
