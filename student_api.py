@@ -29,8 +29,11 @@ class VESCController:
         self._last_command_time = time.time()
     
     def _get_telemetry_value(self, data_type: str, field: str) -> float:
-        """Get a specific telemetry value with 0.0 fallback"""
+        """Get a specific telemetry value with fallback logic"""
         val = self.interface.get_telemetry_value(self.controller_id, data_type, field)
+        
+        # If Status 5/6 is missing (returning None), return 0.0 but don't crash.
+        # This allows notebooks to function even if hardware setup is incomplete.
         return val if val is not None else 0.0
     
     def _get_live_data(self) -> Dict[str, Any]:
