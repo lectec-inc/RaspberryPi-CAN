@@ -175,7 +175,7 @@ Day 2 of 14
 - **BODY:**
     - If the motor isn't moving, RPM and Current will be 0.
     - Voltage and Temperatures are **always** active.
-- **DEBUG TIP:** If your RPM is 0 while you're moving, check your Hall Sensor cables.
+- **DEBUG TIP:** If your RPM is zero, make sure the motor is plugged in.
 
 ---
 
