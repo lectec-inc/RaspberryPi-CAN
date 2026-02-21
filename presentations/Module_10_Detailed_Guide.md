@@ -86,7 +86,7 @@ Day 10 of 14
 
 ## SLIDE 5: Your Turn
 **Visual Design**
-- An open, empty Jupyter Notebook is shown in isometric 3D.
+- An open, empty Jupyter Notebook is shown in isometric 3D, with "AI Capstone Project" in the header.
 - A blinking cursor, glowing in Electric Blue (#44B6E5), waits in the first code cell.
 
 **Text Content**
