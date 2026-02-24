@@ -19,7 +19,7 @@ Day 10 of 14
 **Lesson Structure:** This is not a traditional lecture day.
 - **(5 min) Introduction:** Briefly present the goal for the day: to build a complete, custom integrated project.
 - **(5 min) Project Options:** Walk through the project options to spark ideas.
-- **(30 min) Workshop:** Students work independently or in pairs on their chosen project within the `Student_Notebook_10.ipynb`. Circulate to assist, debug, and challenge.
+- **(30 min) Workshop:** Students work independently or in pairs on their chosen project within the `10_AI_Capstone.ipynb`. Circulate to assist, debug, and challenge.
 - **(5 min) Wrap-up:** Have students save their work and prepare for potential demonstrations next class if needed.
 
 ---
@@ -61,7 +61,7 @@ Day 10 of 14
 **Text Content**
 - **DISPLAY HEADER:** PROJECT OPTIONS
 - **BODY:**
-  - **A. Autonomous Safety Assistant:** Actively respond to hazards based on speed and detection.
+  - **A. Autonomous Safety Braking Assistant:** Actively respond to hazards based on speed and detection.
   - **B. Smart Parking Helper:** Use object size to estimate distance and provide audio feedback.
   - **C. Traffic Monitor:** Log and classify objects while correlating with vehicle performance.
   - **D. Your Own Idea:** Propose a custom project that meets the requirements.
@@ -92,7 +92,7 @@ Day 10 of 14
 **Text Content**
 - **DISPLAY HEADER:** BEGIN DEVELOPMENT
 - **BODY:**
-  - Open `Student_Notebook_10.ipynb`.
+  - Open `10_AI_Capstone.ipynb`.
   - Review the project options and rubric.
   - Start building.
 - **MISSION:** Demonstrate mastery of the complete system.

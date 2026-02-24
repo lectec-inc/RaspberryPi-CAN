@@ -1,206 +1,208 @@
 # MODULE 4
-Taking Control: Commanding Your Motor
-Safety-First Motor Control
+Brake Control: Safe Intervention Engineering
+Bounded Brake Sequences and Telemetry-Gated Control
 Lectec PEV AI Curriculum
 Day 4 of 14
 
 ## STYLE MANIFESTO: BLUEPRINT FUTURISM
 - **Color Palette:** STRICT White background, Solid Black text, Electric Blue (#44B6E5) accents.
 - **Typography:** Space Grotesk (Display sizes for headers).
-- **Imagery:** 3D Isometric Technical Renders. Monochromatic clay-render style with #44B6E5 "energy glows" on highlights.
+- **Imagery:** 3D Isometric Technical Renders. Monochromatic clay-render style with #44B6E5 energy glows.
 - **Background:** Faint, thin-line isometric white grid.
 
 ---
 
 ## TEACHER'S GUIDE: MODULE 4 OVERVIEW
 
-**Module Goal:** To teach students how to safely control the VESC motor using the `student_api`. This lesson is the most safety-critical of the CAN-bus section. The primary focus must be on process and safety, not just results.
+**Module Goal:** Teach students to design safe intervention behavior using bounded brake ramps, telemetry checks, and cooldown logic.
 
 **Lesson Structure:**
-- **(10 min) SAFETY FIRST Briefing:** This is the most important part of the lesson. Use the slides to walk through every safety rule. Ensure every student understands the emergency stop command (`set_duty_cycle(0)`) and the physical setup (vehicle on a secure stand).
-- **(10 min) Lecture:** Explain the three control methods, focusing on Duty Cycle and Regenerative Braking.
-- **(20 min) Workshop:** Students work through the `Student_Notebook_04.ipynb` exercises. Circulate to ensure they are following the safety checklist and understanding the code.
-- **(5 min) Wrap-up:** Review the concept of a smooth acceleration sequence and its real-world parallels.
+- **(10 min) Safety Briefing:** Bench setup, hand-spin protocol, and intervention guardrails.
+- **(10 min) Lecture:** Explain bounded brake parameters (`current_a`, `ramp_time_s`) and cooldown.
+- **(20 min) Workshop:** Students complete `04_Brake_Control.ipynb` brake-control exercises, including pseudocode-first design and blank-cell implementation.
+- **(5 min) Wrap-up:** Review profile tuning and why smooth ramping lowers physical risk.
 
 ---
 
 ## SLIDE 1: Title Slide
 **Visual Design**
-- A 3D isometric render of the VESC controller.
-- A bold, Electric Blue (#44B6E5) arrow representing a "command" flows from a representation of code into the VESC's control port.
-- Faint isometric grid background.
+- Isometric VESC + wheel with Electric Blue control waveform.
 
 **Text Content**
-- **DISPLAY HEADER:** MODULE 4: MOTOR CONTROL
-- **SUBTEXT:** Commanding Your Vehicle
+- **DISPLAY HEADER:** MODULE 4: BRAKE CONTROL
+- **SUBTEXT:** Safe Intervention Engineering
 - **BOTTOM FOOTER:** Lectec PEV AI Curriculum | Day 4 of 14
 
 ---
 
 ## SLIDE 2: TODAY'S GOAL
 **Visual Design**
-- A simple, clean animation concept showing a motor's RPM smoothly ramping up, holding steady, and ramping back down to zero.
-- The motion is represented by a clean line graph where the line is a glowing Electric Blue (#44B6E5).
+- Two line plots: brake current ramp-up and automatic release ramp-down.
 
 **Text Content**
-- **DISPLAY HEADER:** CONTROLLED MOTION
+- **DISPLAY HEADER:** CONTROLLED BRAKING
 - **BODY:**
-  - Today, you will command the motor to move for the first time.
-  - You will learn to safely start it, control its speed, and bring it to a stop using a smooth, software-controlled sequence.
-- **CALLOUT:** "In 40 minutes, you will write the code that makes it spin."
+  - Build safe intervention logic with bounded values.
+  - Validate behavior with live telemetry.
+  - Tune profiles for smooth response.
 
 ---
 
-## SLIDE 3: SAFETY FIRST
+## SLIDE 3: SAFETY PROTOCOL
 **Visual Design**
-- A large, bold "WARNING" icon (a triangle with an exclamation mark) rendered in the blueprint style.
-- The icon is highlighted with an Electric Blue (#44B6E5) outline.
+- Bench diagram with wheel off-ground and operator zones.
 
 **Text Content**
-- **DISPLAY HEADER:** CRITICAL SAFETY PROTOCOLS
+- **DISPLAY HEADER:** MANDATORY BENCH SETUP
 - **BODY:**
-  - **THE VEHICLE MUST BE ON A SECURE TEST STAND.**
-  - Wheels must be completely off the ground.
-  - Keep hands, hair, and loose clothing away from all moving parts.
-- **CRITICAL:** Failure to follow these rules can result in injury.
+  - Vehicle secured on stand.
+  - Hand-spin validation only.
+  - One operator, one observer.
+  - Keep all limbs and loose clothing clear.
 
 ---
 
-## SLIDE 4: Three Control Methods
+## SLIDE 4: Brake API Contract
 **Visual Design**
-- A grid of three monochromatic icons.
-- **Icon 1:** A throttle or slider (Duty Cycle).
-- **Icon 2:** A lightning bolt with an arrow (Current Control).
-- **Icon 3:** A brake pedal icon (Braking).
+- Blueprint callout box showing API signature.
 
 **Text Content**
-- **DISPLAY HEADER:** METHODS OF CONTROL
+- **DISPLAY HEADER:** STANDARD CONTROL INTERFACE
 - **BODY:**
-  - We have three primary ways to command the VESC:
-    - **Duty Cycle:** Like a throttle percentage.
-    - **Current Control:** Commanding a specific amount of torque.
-    - **Brake Current:** Using the motor itself to brake (Regenerative Braking).
+  - `set_brake_current(current_a, ramp_time_s)`
+  - `current_a`: `0.0` to `10.0` A
+  - `ramp_time_s`: `3.0` to `10.0` s
+  - Built-in cooldown + automatic release ramp
 
 ---
 
-## SLIDE 5: Duty Cycle Control
+## SLIDE 5: Why Ramping Matters
 **Visual Design**
-- A horizontal slider bar from -1.0 to +1.0. A marker is shown at +0.25.
-- An arrow points from the marker to text that reads "25% Forward Throttle".
-- The slider bar is Electric Blue (#44B6E5).
+- Compare two curves: sudden step vs smooth ramp.
 
 **Text Content**
-- **DISPLAY HEADER:** DUTY CYCLE: THE THROTTLE
+- **DISPLAY HEADER:** REDUCING TRANSIENT SHOCK
 - **BODY:**
-  - `set_duty_cycle(value)`
-  - The value is a percentage from -1.0 (-100% reverse) to 1.0 (100% forward).
-  - `0.0` is neutral (stop).
-  - This is the simplest and safest way to control speed.
-- **JUPYTER TRANSITION:** Section 2 - Duty Cycle Control.
+  - Ramping limits abrupt torque transients.
+  - Smoother force profile improves stability and student safety.
+  - Predictable behavior is easier to validate in class.
 
 ---
 
-## SLIDE 6: Current Control
+## SLIDE 6: Telemetry-Gated Intervention
 **Visual Design**
-- An isometric view of the motor with a large arrow pushing against the wheel, labeled "Torque".
-- The arrow is glowing Electric Blue (#44B6E5).
+- Flowchart: `Read RPM + Temp -> Check Thresholds -> Apply Brake`.
 
 **Text Content**
-- **DISPLAY HEADER:** CURRENT: THE FORCE
+- **DISPLAY HEADER:** INTERVENE ONLY WHEN NEEDED
 - **BODY:**
-  - `set_current(amps)`
-  - This commands the motor to apply a specific amount of rotational force (torque).
-  - Useful for holding a position or applying consistent force, but more advanced than duty cycle.
+  - Gate by RPM threshold.
+  - Gate by temperature and controller availability.
+  - Skip intervention when guard conditions fail.
 
 ---
 
-## SLIDE 7: Regenerative Braking
+## SLIDE 7: Pseudocode First
 **Visual Design**
-- An animation concept. The motor is spinning.
-- The `set_brake_current()` command is called.
-- The motor is shown slowing down, and an Electric Blue (#44B6E5) energy flow is visualized going from the motor *back* to the battery icon.
+- Split panel: left side plain-language logic bullets, right side simple flowchart.
 
 **Text Content**
-- **DISPLAY HEADER:** REGENERATIVE BRAKING
+- **DISPLAY HEADER:** DESIGN THE LOGIC BEFORE CODING
 - **BODY:**
-  - `set_brake_current(amps)`
-  - This turns the spinning motor into a generator.
-  - It uses the motor's own resistance to slow the vehicle down.
-  - The energy generated is sent back to recharge the battery!
+  - Students co-author pseudocode live with the teacher for telemetry-gated intervention.
+  - Required gates: `abs(rpm) > 150` and `fet_temp < 70`.
+  - Outcome A: apply bounded brake sequence.
+  - Outcome B: no intervention.
+- **JUPYTER PROMPT:** Exercise 2.2A in Module 4 notebook is intentionally blank for student-authored pseudocode.
 
 ---
 
-## SLIDE 8: The Safety Flag
+## SLIDE 8: Pseudocode to Python
 **Visual Design**
-- A simple code block showing an `if` statement.
-- `if MOTOR_CONTROL_ENABLED == True:`
-- The `True` value is highlighted in Electric Blue (#44B6E5).
+- Progression graphic: student-authored pseudocode transforms into a blank Python implementation cell.
 
 **Text Content**
-- **DISPLAY HEADER:** THE INTENTIONAL STEP
+- **DISPLAY HEADER:** TRANSLATE LOGIC INTO CODE
 - **BODY:**
-  - Before running any motor commands, you must explicitly enable them in your code.
-  - This prevents accidental motor activation.
-  - It's a digital "safety switch" you must flip before proceeding.
+  - Move line-by-line from student-authored pseudocode to executable Python.
+  - Keep gate checks explicit and readable.
+  - Use target intervention profile: `set_brake_current(3.0, 4.0)`.
+- **JUPYTER PROMPT:** Exercise 2.2B blank implementation cell (students fill from scratch).
 
 ---
 
-## SLIDE 9: Command Sequence
+## SLIDE 9: Cooldown Behavior
 **Visual Design**
-- A clean, four-stage flowchart.
-- 1. Check Safety -> 2. Send Command -> 3. Verify (Read RPM) -> 4. Send Stop Command.
-- The arrows connecting the stages are Electric Blue (#44B6E5).
+- Timeline showing two calls; second blocked during cooldown.
 
 **Text Content**
-- **DISPLAY HEADER:** THE CONTROL LOOP
+- **DISPLAY HEADER:** SPAM PREVENTION
 - **BODY:**
-  - Always follow a safe command sequence:
-    1.  **Check:** Ensure the system is ready and safe.
-    2.  **Command:** Send a single, small motor command.
-    3.  **Verify:** Read telemetry to see if the motor responded as expected.
-    4.  **Stop:** Always end your sequence with a command to stop the motor.
+  - Cooldown avoids repeated intervention bursts.
+  - Improves system stability and readability.
+  - Encourages deliberate control-loop design.
 
 ---
 
-## SLIDE 10: Emergency Stop
+## SLIDE 10: Profile Tuning
 **Visual Design**
-- A large, red, hexagonal "STOP" sign.
-- Inside the sign, the code `set_duty_cycle(0)` is written in bold, white text.
+- Table of profiles (A, s) and expected feel.
 
 **Text Content**
-- **DISPLAY HEADER:** THE MOST IMPORTANT COMMAND
+- **DISPLAY HEADER:** PARAMETER TUNING
 - **BODY:**
-  - `set_duty_cycle(0)`
-  - This is your emergency stop. It immediately commands the motor to go to a neutral state.
-  - Memorize this command. It is the first thing you should do if the motor behaves unexpectedly.
+  - Example profiles: `(2A, 6s)`, `(4A, 5s)`, `(6A, 3.5s)`.
+  - Compare response smoothness and stopping behavior.
+  - Document observations in notebook.
 
 ---
 
-## SLIDE 11: Real Car Comparison
+## SLIDE 11: Validation Checklist
 **Visual Design**
-- A simple diagram showing a foot pressing a car's accelerator pedal.
-- The pedal's position is mapped to a percentage (e.g., "30% throttle").
-- This is linked to our `set_duty_cycle(0.3)` command.
+- 4-step checklist with blue checkboxes.
 
 **Text Content**
-- **DISPLAY HEADER:** DRIVE-BY-WIRE
+- **DISPLAY HEADER:** VERIFY EVERY RUN
 - **BODY:**
-  - Modern cars work the same way. Your accelerator pedal isn't directly connected to the engine.
-  - It's an electronic sensor that tells a computer what "duty cycle" to apply.
-  - You are learning the fundamentals of modern vehicle control.
+  1. Confirm connection and telemetry.
+  2. Run one bounded brake profile.
+  3. Verify release ramp and cooldown.
+  4. Log results and anomalies.
 
 ---
 
-## SLIDE 12: Your Turn (CAREFULLY)
+## SLIDE 12: Engineering Mindset
 **Visual Design**
-- An isometric render of the test bench setup.
-- The skateboard is securely fastened, and a student's hands are shown on a laptop nearby, NOT touching the vehicle.
-- The laptop screen shows a Jupyter notebook.
+- Notebook dashboard mock showing RPM, temp, profile, and result.
 
 **Text Content**
-- **DISPLAY HEADER:** CAREFUL EXECUTION
+- **DISPLAY HEADER:** OBSERVE -> DECIDE -> INTERVENE
 - **BODY:**
-  - Open `Student_Notebook_04.ipynb`.
-  - Complete the mandatory safety checklist.
-  - Build your first smooth acceleration sequence.
-- **MISSION:** Section 4 - Knowledge Check.
+  - Strong control systems are data-first.
+  - Interventions must be bounded and explainable.
+  - Every actuation should be justified by telemetry.
+
+---
+
+## SLIDE 13: Your Turn
+**Visual Design**
+- Isometric laptop on bench with `04_Brake_Control.ipynb` open.
+
+**Text Content**
+- **DISPLAY HEADER:** BUILD THE BRAKE CONTROL LOOP
+- **BODY:**
+  - Complete safety checklist.
+  - Run first sequence.
+  - Complete Exercise 2.2A pseudocode and Exercise 2.2B implementation, then validate cooldown behavior.
+- **MISSION:** Section 4 Knowledge Check.
+
+---
+
+## SLIDE 14: Wrap-Up
+**Visual Design**
+- Summary blueprint with three tags: Bounded, Smooth, Verified.
+
+**Text Content**
+- **DISPLAY HEADER:** CORE TAKEAWAY
+- **BODY:**
+  - Safe intervention = bounded parameters + smooth ramps + validation.

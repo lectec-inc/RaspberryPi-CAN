@@ -7,7 +7,7 @@ High-level Python API for students to interact with VESC motor controllers.
 
 import time
 import threading
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List, Tuple
 from core.main import VESCSystemManager
 
 
@@ -20,6 +20,11 @@ class VESCController:
         self.interface = system_manager.get_interface()
         self._last_command_time = 0
         self._command_delay = 0.1  # Minimum time between commands
+        self._max_safe_brake_current = 10.0
+        self._min_safe_ramp_time = 3.0
+        self._max_safe_ramp_time = 10.0
+        self._min_brake_interval = 1.0
+        self._last_brake_command_time = 0.0
     
     def _check_command_rate(self):
         """Ensure commands aren't sent too frequently"""
@@ -146,108 +151,92 @@ class VESCController:
     # ==================== WRITE FUNCTIONS ====================
     
     def set_duty_cycle(self, duty_cycle: float) -> bool:
-        """
-        Set motor duty cycle
-        
-        Args:
-            duty_cycle: Duty cycle from -1.0 to 1.0
-            
-        Returns:
-            True if command sent successfully, False otherwise
-        """
-        if not -1.0 <= duty_cycle <= 1.0:
-            raise ValueError("Duty cycle must be between -1.0 and 1.0")
-        
-        self._check_command_rate()
-        
-        try:
-            # Send duty cycle command (fire-and-forget - VESC doesn't send acknowledgments)
-            self.interface.send_command(
-                self.controller_id, 
-                'duty', 
-                duty_cycle, 
-                callback=None,
-                timeout=2.0,
-                expect_response=False
-            )
-            
-            # Command sent successfully - VESC will apply it immediately
-            return True
-                
-        except Exception as e:
-            print(f"Error setting duty cycle: {e}")
-            return False
-    
+        """Drive-by-duty commands are not part of the student brake-control API."""
+        raise RuntimeError("set_duty_cycle is not available in the student brake-control API.")
+
     def set_current(self, current: float) -> bool:
+        """Drive-current commands are not part of the student brake-control API."""
+        raise RuntimeError("set_current is not available in the student brake-control API.")
+
+    def set_rpm(self, rpm: float) -> bool:
+        """RPM drive commands are not part of the student brake-control API."""
+        raise RuntimeError("set_rpm is not available in the student brake-control API.")
+
+    def set_brake_current(self, current_a: float, ramp_time_s: float) -> bool:
         """
-        Set motor current
-        
+        Apply a bounded brake sequence with smooth ramping.
+
         Args:
-            current: Current in amperes
-            
+            current_a: Target brake current in amperes. Allowed range: 0.0 to 10.0.
+            ramp_time_s: Ramp-up time in seconds. Allowed range: 3.0 to 10.0.
+
         Returns:
-            True if command sent successfully, False otherwise
+            True if sequence is sent successfully, False otherwise.
         """
-        if not -100.0 <= current <= 100.0:
-            raise ValueError("Current must be between -100.0 and 100.0 amperes")
-        
-        self._check_command_rate()
-        
-        try:
-            # Send current command (fire-and-forget - VESC doesn't send acknowledgments)
-            self.interface.send_command(
-                self.controller_id, 
-                'current', 
-                current, 
-                callback=None,
-                timeout=2.0,
-                expect_response=False
+        if not 0.0 <= current_a <= self._max_safe_brake_current:
+            raise ValueError(
+                f"Brake current must be between 0.0 and {self._max_safe_brake_current} amperes"
             )
-            
-            # Command sent successfully - VESC will apply it immediately
-            return True
-                
-        except Exception as e:
-            print(f"Error setting current: {e}")
+        if not self._min_safe_ramp_time <= ramp_time_s <= self._max_safe_ramp_time:
+            raise ValueError(
+                f"Ramp time must be between {self._min_safe_ramp_time} and {self._max_safe_ramp_time} seconds"
+            )
+
+        now = time.time()
+        if now - self._last_brake_command_time < self._min_brake_interval:
             return False
-    
-    def set_brake_current(self, current: float) -> bool:
-        """
-        Set brake current
-        
-        Args:
-            current: Brake current in amperes (positive value)
-            
-        Returns:
-            True if command sent successfully, False otherwise
-        """
-        if not 0.0 <= current <= 100.0:
-            raise ValueError("Brake current must be between 0.0 and 100.0 amperes")
-        
+
         self._check_command_rate()
-        
+
+        step_s = 0.1
+        ramp_up_steps = max(1, int(round(ramp_time_s / step_s)))
+        ramp_down_steps = 10  # fixed 1.0 second release ramp
+
         try:
-            # Send brake current command (fire-and-forget - VESC doesn't send acknowledgments)
+            self._last_brake_command_time = now
+
+            for i in range(1, ramp_up_steps + 1):
+                level = current_a * (i / ramp_up_steps)
+                self.interface.send_command(
+                    self.controller_id,
+                    'brake',
+                    level,
+                    callback=None,
+                    timeout=2.0,
+                    expect_response=False
+                )
+                time.sleep(step_s)
+
+            for j in range(1, ramp_down_steps + 1):
+                level = current_a * (1 - (j / ramp_down_steps))
+                self.interface.send_command(
+                    self.controller_id,
+                    'brake',
+                    max(0.0, level),
+                    callback=None,
+                    timeout=2.0,
+                    expect_response=False
+                )
+                time.sleep(step_s)
+
             self.interface.send_command(
-                self.controller_id, 
-                'brake', 
-                current, 
+                self.controller_id,
+                'brake',
+                0.0,
                 callback=None,
                 timeout=2.0,
                 expect_response=False
             )
-            
-            # Command sent successfully - VESC will apply it immediately
             return True
-                
+
         except Exception as e:
             print(f"Error setting brake current: {e}")
             return False
-    
+
     def stop_motor(self) -> bool:
-        """Stop the motor by setting duty cycle to 0"""
-        return self.set_duty_cycle(0.0)
-    
+        """Request a standard safe brake sequence."""
+        return self.set_brake_current(3.0, 3.0)
+
     def is_connected(self) -> bool:
         """Check if controller is connected and responding"""
         data = self._get_live_data()
@@ -305,6 +294,192 @@ class VESCStudentAPI:
         """Check if system is running"""
         return self._started and self.system_manager.is_running()
 
+
+
+class AIStudentAPI:
+    """High-level student API for IMX500 AI camera object detection"""
+
+    # COCO labels aligned with IMX500 MobileNet SSD output indices
+    COCO_LABELS = [
+        "person", "bicycle", "car", "motorcycle", "airplane", "bus", "train", "truck", "boat",
+        "traffic light", "fire hydrant", "", "stop sign", "parking meter", "bench", "bird", "cat",
+        "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra", "giraffe", "", "backpack",
+        "umbrella", "", "", "handbag", "tie", "suitcase", "frisbee", "skis", "snowboard",
+        "sports ball", "kite", "baseball bat", "baseball glove", "skateboard", "surfboard",
+        "tennis racket", "bottle", "", "wine glass", "cup", "fork", "knife", "spoon", "bowl",
+        "banana", "apple", "sandwich", "orange", "broccoli", "carrot", "hot dog", "pizza",
+        "donut", "cake", "chair", "couch", "potted plant", "bed", "", "dining table", "", "",
+        "toilet", "", "tv", "laptop", "mouse", "remote", "keyboard", "cell phone", "microwave",
+        "oven", "toaster", "sink", "refrigerator", "", "book", "clock", "vase", "scissors",
+        "teddy bear", "hair drier", "toothbrush"
+    ]
+
+    def __init__(
+        self,
+        model_path: str = '/usr/share/imx500-models/imx500_network_ssd_mobilenetv2_fpnlite_320x320_pp.rpk',
+        confidence_threshold: float = 0.5,
+        frame_rate: int = 30,
+        quiet: bool = True,
+    ):
+        self.model_path = model_path
+        self.confidence_threshold = confidence_threshold
+        self.frame_rate = frame_rate
+        self.quiet = quiet
+
+        self._started = False
+        self._lock = threading.Lock()
+
+        # Lazy-loaded runtime objects
+        self._np = None
+        self._Picamera2 = None
+        self._IMX500 = None
+        self._NetworkIntrinsics = None
+
+        self._imx500 = None
+        self._intrinsics = None
+        self._picam2 = None
+
+    def _lazy_import_camera_stack(self):
+        """Load camera dependencies only when needed."""
+        if self._Picamera2 is not None:
+            return
+
+        import numpy as np
+        from picamera2 import Picamera2
+        from picamera2.devices import IMX500
+        from picamera2.devices.imx500 import NetworkIntrinsics
+
+        self._np = np
+        self._Picamera2 = Picamera2
+        self._IMX500 = IMX500
+        self._NetworkIntrinsics = NetworkIntrinsics
+
+    def start_camera(self) -> bool:
+        """Start the AI camera and detection model."""
+        with self._lock:
+            if self._started:
+                return True
+
+            try:
+                self._lazy_import_camera_stack()
+
+                self._imx500 = self._IMX500(self.model_path)
+                self._intrinsics = self._imx500.network_intrinsics or self._NetworkIntrinsics()
+                self._intrinsics.task = 'object detection'
+                self._intrinsics.labels = self.COCO_LABELS
+                self._intrinsics.update_with_defaults()
+
+                self._picam2 = self._Picamera2(self._imx500.camera_num)
+                config = self._picam2.create_preview_configuration(
+                    controls={'FrameRate': self.frame_rate},
+                    buffer_count=12,
+                )
+
+                # Model boot can take several seconds on first load.
+                self._imx500.show_network_fw_progress_bar()
+                self._picam2.start(config, show_preview=False)
+
+                # Let a few frames settle before reads.
+                time.sleep(0.5)
+                self._started = True
+                return True
+
+            except Exception as e:
+                if not self.quiet:
+                    print(f'Error starting AI camera: {e}')
+                self.stop_camera()
+                return False
+
+    def _parse_detections(self, metadata: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """Convert IMX500 inference output into notebook-friendly detection dicts."""
+        np_outputs = self._imx500.get_outputs(metadata, add_batch=True)
+        if np_outputs is None or len(np_outputs) < 3:
+            return []
+
+        boxes = np_outputs[0]
+        scores = np_outputs[1]
+        classes = np_outputs[2]
+
+        # Remove batch dimensions if present.
+        if hasattr(boxes, 'ndim') and boxes.ndim == 3:
+            boxes = boxes[0]
+        if hasattr(scores, 'ndim') and scores.ndim == 2:
+            scores = scores[0]
+        if hasattr(classes, 'ndim') and classes.ndim == 2:
+            classes = classes[0]
+
+        if self._intrinsics.bbox_normalization:
+            boxes = boxes / self._imx500.get_input_size()[1]
+
+        if getattr(self._intrinsics, 'bbox_order', None) == 'xy':
+            boxes = boxes[:, [1, 0, 3, 2]]
+
+        detections: List[Dict[str, Any]] = []
+        for box, score, category in zip(boxes, scores, classes):
+            confidence = float(score)
+            if confidence < self.confidence_threshold:
+                continue
+
+            coords = self._imx500.convert_inference_coords(box, metadata, self._picam2)
+            if not coords or len(coords) != 4:
+                continue
+
+            x, y, w, h = (int(coords[0]), int(coords[1]), int(coords[2]), int(coords[3]))
+            category_id = int(category)
+
+            if 0 <= category_id < len(self.COCO_LABELS) and self.COCO_LABELS[category_id]:
+                label = self.COCO_LABELS[category_id]
+            else:
+                label = f'class_{category_id}'
+
+            detections.append({
+                'label': label,
+                'confidence': confidence,
+                'box': [x, y, w, h],
+                'category': category_id,
+            })
+
+        return detections
+
+    def get_frame_and_detections(self) -> Tuple[Any, List[Dict[str, Any]]]:
+        """
+        Capture one frame and matching detections.
+
+        Returns:
+            (frame, detections)
+            - frame: OpenCV-compatible ndarray
+            - detections: list of {'label', 'confidence', 'box', 'category'}
+        """
+        if not self._started or self._picam2 is None or self._imx500 is None:
+            raise RuntimeError('AI camera not started. Call start_camera() first.')
+
+        request = self._picam2.capture_request()
+        try:
+            frame = request.make_array('main')
+            metadata = request.get_metadata()
+        finally:
+            request.release()
+
+        detections = self._parse_detections(metadata)
+        return frame, detections
+
+    def stop_camera(self):
+        """Stop and release camera resources."""
+        with self._lock:
+            if self._picam2 is not None:
+                try:
+                    self._picam2.stop()
+                except Exception:
+                    pass
+
+            self._picam2 = None
+            self._imx500 = None
+            self._intrinsics = None
+            self._started = False
+
+    def is_running(self) -> bool:
+        """Check whether camera system is currently running."""
+        return self._started and self._picam2 is not None
 
 def example_usage():
     """Example usage of the student API"""

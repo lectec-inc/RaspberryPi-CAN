@@ -19,7 +19,7 @@ Day 14 of 14
 **Lesson Structure:**
 - **(5 min) Introduction:** Frame the day as a "pitch to an automotive company." The goal is not just to build, but to present an innovative idea.
 - **(5 min) Project Options Review:** Quickly go over the advanced project options to inspire students.
-- **(25 min) Final Development Workshop:** Students work in their `Student_Notebook_14.ipynb` to complete their project and prepare their presentation.
+- **(25 min) Final Development Workshop:** Students work in their `14_ADAS_Capstone.ipynb` to complete their project and prepare their presentation.
 - **(10 min) Project Presentations:** Have 3-4 students give their 2-minute "pitch" to the class. Time may require a second day for full class presentations.
 
 ---
@@ -77,7 +77,7 @@ Day 14 of 14
 - **DISPLAY HEADER:** ENGINEERING REQUIREMENTS
 - **BODY:**
   - Must be a complete ADAS feature (not just detection).
-  - Must include multi-level alerts/responses.
+  - Must include multi-level alerts and TTC-based bounded brake response policy.
   - Must handle edge cases gracefully.
   - Must include a real-time status dashboard.
   - Must be documented with a flowchart.
@@ -108,6 +108,15 @@ Day 14 of 14
 **Text Content**
 - **DISPLAY HEADER:** FINAL BUILD
 - **BODY:**
-  - Open `Student_Notebook_14.ipynb`.
+  - Open `14_ADAS_Capstone.ipynb`.
   - Design your system, write the code, and document your process.
 - **MISSION:** Demonstrate complete mastery of the Lectec curriculum.
+
+
+---
+
+## Capstone Evaluation Addendum
+- Add explicit scoring for intervention policy quality:
+  - TTC mapping clarity
+  - bounded parameter usage
+  - cooldown and edge-case handling

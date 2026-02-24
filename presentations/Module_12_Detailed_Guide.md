@@ -19,7 +19,7 @@ Day 12 of 14
 **Lesson Structure:**
 - **(5 min) Introduction:** Start with a simple, real-world question: "If a car is 100 feet away and traveling towards you at 50 feet per second, how long until it reaches you?" This is TTC. Explain that today, they will build a calculator for this.
 - **(15 min) Lecture:** Use the slides to walk through the core concepts: Distance Estimation from pixels, Speed from RPM, the TTC formula, and the concept of alert thresholds.
-- **(20 min) Workshop:** Students work through the `Student_Notebook_12.ipynb`. This is a math-heavy notebook, so be prepared to assist with the formula implementation.
+- **(20 min) Workshop:** Students work through the `12_ADAS_Theory.ipynb`. This is a math-heavy notebook, so be prepared to assist with the formula implementation.
 - **(5 min) Wrap-up:** Discuss the concepts of false positives vs. false negatives and why sensor fusion is critical for reliable results.
 
 ---
@@ -157,7 +157,7 @@ Day 12 of 14
     - **> 3 seconds:** Safe. Just keep monitoring.
     - **1 to 3 seconds:** High alert. A warning should be issued.
     - **< 1 second:** Critical danger. An immediate, loud alert is needed.
-- **JUPYTER TRANSITION:** Section 4 - Alert Thresholds.
+- **JUPYTER TRANSITION:** Section 4 - TTC Mapping for Brake Intervention.
 
 ---
 
@@ -244,6 +244,15 @@ Day 12 of 14
 **Text Content**
 - **DISPLAY HEADER:** BUILD THE CALCULATOR
 - **BODY:**
-  - Open `Student_Notebook_12.ipynb`.
-  - You will implement the functions to estimate distance and calculate TTC.
-- **MISSION:** Create the core algorithm for your FCW system.
+  - Open `12_ADAS_Theory.ipynb`.
+  - You will implement distance, TTC, and TTC-to-brake mapping helpers.
+- **MISSION:** Create the core FCW math and TTC-driven intervention mapping.
+
+
+---
+
+## TTC-to-Brake Mapping Addendum
+- Teach a deterministic mapping from TTC to intervention parameters.
+- `ttc_to_brake_time(ttc_s)` maps to `3.0..10.0s`.
+- `ttc_to_brake_current(ttc_s)` maps to `2.0..10.0A`.
+- Reinforce monotonic policy: lower TTC -> shorter ramp time + higher current.

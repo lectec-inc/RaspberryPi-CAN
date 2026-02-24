@@ -1,6 +1,6 @@
 # MODULE 2
 Complete Vehicle Telemetry Mastery
-Understanding the 18 Data Points of the VESC
+Understanding the 17 Telemetry Signals of the VESC
 Lectec PEV AI Curriculum
 Day 2 of 14
 
@@ -34,7 +34,7 @@ Day 2 of 14
 **Text Content**
 - **DISPLAY HEADER:** THE FULL PICTURE
 - **BODY:** 
-    - Today, you will build a system that reads all 18 unique data points from your vehicle.
+    - Today, you will build a system that reads all 17 unique telemetry signals from your vehicle.
     - Speed, Power, Heat, and Health—all in real-time.
 - **CALLOUT:** "In 40 minutes, you will know everything your skateboard knows."
 
@@ -54,19 +54,19 @@ Day 2 of 14
 
 ---
 
-## SLIDE 4: The 18 Data Points
+## SLIDE 4: The 17 Telemetry Signals
 **Visual Design**
 - A large, 3D isometric VESC controller centered on the slide.
-- 18 thin, Electric Blue (#44B6E5) lines radiate out from the controller to a clean list of text labels.
+- 17 thin, Electric Blue (#44B6E5) lines radiate out from the controller to a clean list of text labels.
 - The labels are categorized into: MOTOR, POWER, TEMPERATURE, and SENSORS.
 
 **Text Content**
 - **DISPLAY HEADER:** DATA ARCHITECTURE
 - **VERTICAL GRID LIST:**
-    - **MOTOR:** RPM, Current, Duty Cycle.
-    - **POWER:** Voltage, Input Current, Amp Hours, Watt Hours.
-    - **TEMPERATURE:** FET Temperature, Motor Temperature.
-    - **SENSORS:** Tachometer, PID Position, ADC Channels.
+    - **MOTOR:** RPM, Current, Duty Cycle, Motor Temperature.
+    - **POWER:** Voltage, Input Current, Amp Hours Consumed, Amp Hours Charged, Watt Hours Consumed, Watt Hours Charged.
+    - **TEMPERATURE:** FET Temperature.
+    - **SENSORS:** Tachometer, PID Position, ADC EXT, ADC EXT2, ADC EXT3, Servo Value.
 
 ---
 
@@ -157,7 +157,7 @@ Day 2 of 14
 **Text Content**
 - **DISPLAY HEADER:** THE MASTER KEY
 - **BODY:**
-    - Instead of calling 18 functions, we call one.
+    - Instead of calling 17 telemetry getters, we call one.
     - `get_all_telemetry()` returns a Python Dictionary.
     - High-speed, efficient data retrieval.
 - **JUPYTER TRANSITION:** Section 5.1 - The Master Function Demonstration.

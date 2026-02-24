@@ -349,9 +349,9 @@ get_motor_temperature() - Motor temp
 ...and more!
 Category 2: Control Functions (Orange box)
 Send commands TO the VESC (Teacher approval required!)
-set_duty_cycle() - Control motor speed
-set_current() - Control motor torque
-set_brake_current() - Apply brakes
+set_brake_current(current_a, ramp_time_s) - Run bounded brake intervention
+get_rpm(), get_input_voltage(), get_fet_temperature() - Read live telemetry
+stop_motor() - Run standard safe brake sequence
 Category 3: System Functions (Green box)
 Manage the connection
 start() - Connect to the VESC

@@ -19,7 +19,7 @@ Day 13 of 14
 **Lesson Structure:**
 - **(5 min) Introduction:** Start with the goal: "Today, we build the complete system." Show a live demo of the final FCW system in action, emphasizing the multi-level alerts.
 - **(10 min) Lecture:** Briefly walk through the system architecture and integration challenges slides. This recap solidifies the plan before they dive into code.
-- **(25 min) Workshop:** This is the most code-heavy day. Students work through the `Student_Notebook_13.ipynb`, integrating the functions they built in Module 12 into a complete, real-time loop.
+- **(25 min) Workshop:** This is the most code-heavy day. Students work through the `13_ADAS_Implementation.ipynb`, integrating the functions they built in Module 12 into a complete, real-time loop.
 - **(5 min) Testing & Wrap-up:** Guide students through the safe testing protocol and discuss the results.
 
 ---
@@ -208,3 +208,11 @@ Day 13 of 14
   - Assemble the components from the previous lessons.
   - Build your complete Forward Collision Warning system.
 - **MISSION:** Section 5 - Knowledge Check.
+
+
+---
+
+## TTC-Brake Integration Notes
+- In critical state, compute `brake_time_s = ttc_to_brake_time(ttc)` and `brake_current_a = ttc_to_brake_current(ttc)`.
+- Show these values on dashboard so students can validate intervention reasoning.
+- Keep cooldown gates to prevent repeated intervention bursts.

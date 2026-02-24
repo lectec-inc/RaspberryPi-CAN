@@ -19,7 +19,7 @@ Day 5 of 14
 **Lesson Structure:** This is a workshop-focused day.
 - **(5 min) Introduction:** Frame the day as their first opportunity to be a "systems engineer." Introduce the capstone project goal.
 - **(10 min) Project Options & Rubric:** Walk through the three project options (Battery Monitor, Performance Analyzer, Safety System) and the custom "Design Your Own" path. Clearly explain the evaluation rubric so they know how they will be graded.
-- **(25 min) Development Workshop:** Students work in `Student_Notebook_05.ipynb` to build their chosen project. Circulate to help them brainstorm, debug, and scope their ideas.
+- **(25 min) Development Workshop:** Students work in `05_CAN_Capstone.ipynb` to build their chosen project. Circulate to help them brainstorm, debug, and scope their ideas.
 - **(5 min) Wrap-up:** Have students save their work and prepare for a brief demonstration in the next class.
 
 ---
@@ -63,7 +63,7 @@ Day 5 of 14
 - **BODY:**
   - **A. Battery Health Monitor:** Track voltage and energy use to create a smart battery gauge.
   - **B. Performance Analyzer:** Log speed and power to find peak performance metrics.
-  - **C. Temperature Safety System:** Automatically reduce power if the motor gets too hot.
+  - **C. Temperature Safety and Brake Intervention System:** Automatically reduce power if the motor gets too hot.
   - **D. Your Own Idea:** Propose a custom project that meets the requirements.
 
 ---
@@ -92,7 +92,7 @@ Day 5 of 14
 **Text Content**
 - **DISPLAY HEADER:** BEGIN DEVELOPMENT
 - **BODY:**
-  - Open `Student_Notebook_05.ipynb`.
+  - Open `05_CAN_Capstone.ipynb`.
   - Review the project options and rubric.
   - Start building your system.
 - **MISSION:** Demonstrate mastery of CAN bus communication.

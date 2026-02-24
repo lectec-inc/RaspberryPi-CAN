@@ -29,15 +29,15 @@ Day 9 of 14
 ## SLIDE 2: TODAY'S GOAL
 **Visual Design**
 - An isometric animation concept.
-- **Scene 1:** AI camera detects a person, but the skateboard is stationary (RPM=0). No alert is shown.
-- **Scene 2:** The skateboard is moving fast (RPM=3000), but no person is detected. No alert is shown.
+- **Scene 1:** AI camera detects a person, but the skateboard is stationary (RPM=0). No alert and bounded brake intervention is shown.
+- **Scene 2:** The skateboard is moving fast (RPM=3000), but no person is detected. No alert and bounded brake intervention is shown.
 - **Scene 3:** The skateboard is moving fast AND the camera detects a person. A large, Electric Blue (#44B6E5) "ALERT!" text appears.
 
 **Text Content**
 - **DISPLAY HEADER:** THE SMART SAFETY MONITOR
 - **BODY:**
   - Today, you will build a system that understands context.
-  - It will only trigger an alert when a potential hazard is detected **AND** the vehicle is in motion.
+  - It will only trigger an alert and bounded brake intervention when a potential hazard is detected **AND** the vehicle is in motion.
 - **CALLOUT:** "In 40 minutes, you will build a system that makes intelligent decisions."
 
 ---
@@ -100,7 +100,7 @@ Day 9 of 14
     - **CAMERAS:** To see *what* an object is.
     - **RADAR:** To see *how fast* it's moving.
     - **LIDAR:** To see its exact *shape and distance*.
-  - We are doing the same thing, but with a camera and a motor controller.
+  - We are doing the same thing, but with a camera and telemetry-driven control logic.
 
 ---
 
@@ -149,8 +149,8 @@ Day 9 of 14
 **Text Content**
 - **DISPLAY HEADER:** ESCALATING RESPONSE
 - **BODY:**
-  - A single alert isn't enough. The response should match the risk level.
-  - **LOW SPEED + PERSON:** A quiet visual alert on a dashboard.
+  - A single alert and bounded brake intervention isn't enough. The response should match the risk level.
+  - **LOW SPEED + PERSON:** A quiet visual alert and bounded brake intervention on a dashboard.
   - **HIGH SPEED + PERSON:** A loud, insistent audio alarm.
 
 ---
