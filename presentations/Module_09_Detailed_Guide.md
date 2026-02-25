@@ -117,6 +117,7 @@ Day 9 of 14
 - **DISPLAY HEADER:** THE COMBINED SCRIPT
 - **BODY:**
   - Our code will now have two API objects.
+  - Buzzer control should come from `ai_api.start_buzzer()` and `ai_api.buzzer_beep(...)` so notebook reruns do not leave GPIO pins locked.
   - Inside our main loop, we will query both systems.
   - The core of our program will be a multi-condition `if` statement.
 - **JUPYTER TRANSITION:** Section 2 - Combining Data.

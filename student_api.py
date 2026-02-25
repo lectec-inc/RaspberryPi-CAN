@@ -297,7 +297,7 @@ class VESCStudentAPI:
 
 
 class AIStudentAPI:
-    """High-level student API for IMX500 AI camera object detection"""
+    """High-level student API for IMX500 AI camera object detection."""
 
     # COCO labels aligned with IMX500 MobileNet SSD output indices
     COCO_LABELS = [
@@ -314,6 +314,18 @@ class AIStudentAPI:
         "teddy bear", "hair drier", "toothbrush"
     ]
 
+    _shared_buzzer = None
+    _shared_buzzer_pin = None
+    _shared_buzzer_lock = threading.Lock()
+    _buzzer_pin = 17
+
+    _shared_camera_started = False
+    _shared_imx500 = None
+    _shared_intrinsics = None
+    _shared_picam2 = None
+    _shared_camera_lock = threading.RLock()
+    _atexit_registered = False
+
     def __init__(
         self,
         model_path: str = '/usr/share/imx500-models/imx500_network_ssd_mobilenetv2_fpnlite_320x320_pp.rpk',
@@ -327,7 +339,7 @@ class AIStudentAPI:
         self.quiet = quiet
 
         self._started = False
-        self._lock = threading.Lock()
+        self._lock = threading.RLock()
 
         # Lazy-loaded runtime objects
         self._np = None
@@ -338,6 +350,47 @@ class AIStudentAPI:
         self._imx500 = None
         self._intrinsics = None
         self._picam2 = None
+
+        cls = type(self)
+        with cls._shared_camera_lock:
+            if not cls._atexit_registered:
+                import atexit
+
+                atexit.register(cls._atexit_cleanup)
+                cls._atexit_registered = True
+
+    @classmethod
+    def _atexit_cleanup(cls):
+        """Best-effort release for camera and buzzer on kernel exit."""
+        try:
+            with cls._shared_camera_lock:
+                if cls._shared_picam2 is not None:
+                    try:
+                        cls._shared_picam2.stop()
+                    except Exception:
+                        pass
+                cls._shared_picam2 = None
+                cls._shared_imx500 = None
+                cls._shared_intrinsics = None
+                cls._shared_camera_started = False
+
+            with cls._shared_buzzer_lock:
+                if cls._shared_buzzer is not None:
+                    try:
+                        cls._shared_buzzer.off()
+                    except Exception:
+                        pass
+                    cls._shared_buzzer.close()
+                cls._shared_buzzer = None
+                cls._shared_buzzer_pin = None
+        except Exception:
+            pass
+
+    def _load_buzzer_class(self):
+        """Import gpiozero lazily so non-GPIO lessons do not require it at import time."""
+        from gpiozero import Buzzer
+
+        return Buzzer
 
     def _lazy_import_camera_stack(self):
         """Load camera dependencies only when needed."""
@@ -354,41 +407,161 @@ class AIStudentAPI:
         self._IMX500 = IMX500
         self._NetworkIntrinsics = NetworkIntrinsics
 
-    def start_camera(self) -> bool:
+    def _clear_local_camera_refs(self):
+        self._picam2 = None
+        self._imx500 = None
+        self._intrinsics = None
+        self._started = False
+
+    def _attach_shared_camera_refs(self):
+        cls = type(self)
+        self._picam2 = cls._shared_picam2
+        self._imx500 = cls._shared_imx500
+        self._intrinsics = cls._shared_intrinsics
+        self._started = cls._shared_camera_started and cls._shared_picam2 is not None
+
+    def _is_camera_busy_error(self, err: Exception) -> bool:
+        msg = str(err).lower()
+        return (
+            'device or resource busy' in msg
+            or 'resource busy' in msg
+            or '[errno 16]' in msg
+            or 'already in use' in msg
+            or 'pipeline handler in use' in msg
+            or 'in use by another process' in msg
+        )
+
+    def _read_cmdline(self, pid: int) -> str:
+        try:
+            with open(f'/proc/{pid}/cmdline', 'rb') as f:
+                return f.read().decode(errors='ignore').replace('\x00', ' ').strip()
+        except Exception:
+            return ''
+
+    def _terminate_pid(self, pid: int, sig: int):
+        import os
+
+        try:
+            os.kill(pid, sig)
+        except ProcessLookupError:
+            return
+        except PermissionError:
+            return
+        except Exception:
+            return
+
+    def _reclaim_camera_from_other_kernels(self) -> bool:
+        """Release camera from other ipykernel processes to keep notebooks resilient."""
+        import os
+        import re
+        import signal
+        import subprocess
+
+        camera_nodes = ['/dev/video0', '/dev/video1', '/dev/media0', '/dev/media3']
+        pids = set()
+        for node in camera_nodes:
+            result = subprocess.run(
+                ['fuser', node],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            if result.stdout:
+                for match in re.findall(r'\d+', result.stdout):
+                    pids.add(int(match))
+
+        current_pid = os.getpid()
+        victims = []
+        for pid in sorted(pids):
+            if pid == current_pid:
+                continue
+            cmdline = self._read_cmdline(pid)
+            if 'ipykernel_launcher' in cmdline:
+                victims.append(pid)
+
+        if not victims:
+            return False
+
+        if not self.quiet:
+            print(f'Camera busy, reclaiming from stale kernels: {victims}')
+
+        for pid in victims:
+            self._terminate_pid(pid, signal.SIGTERM)
+
+        deadline = time.time() + 4.0
+        while time.time() < deadline:
+            remaining = [pid for pid in victims if os.path.exists(f'/proc/{pid}')]
+            if not remaining:
+                break
+            time.sleep(0.2)
+
+        remaining = [pid for pid in victims if os.path.exists(f'/proc/{pid}')]
+        for pid in remaining:
+            self._terminate_pid(pid, signal.SIGKILL)
+
+        time.sleep(0.6)
+        return True
+
+    def start_camera(self, reclaim_if_busy: bool = True) -> bool:
         """Start the AI camera and detection model."""
-        with self._lock:
-            if self._started:
+        cls = type(self)
+
+        # Reuse shared camera in-process if it is already active.
+        with cls._shared_camera_lock:
+            if cls._shared_camera_started and cls._shared_picam2 is not None:
+                self._attach_shared_camera_refs()
                 return True
 
+        for attempt in range(2):
+            picam2 = None
             try:
                 self._lazy_import_camera_stack()
 
-                self._imx500 = self._IMX500(self.model_path)
-                self._intrinsics = self._imx500.network_intrinsics or self._NetworkIntrinsics()
-                self._intrinsics.task = 'object detection'
-                self._intrinsics.labels = self.COCO_LABELS
-                self._intrinsics.update_with_defaults()
+                imx500 = self._IMX500(self.model_path)
+                intrinsics = imx500.network_intrinsics or self._NetworkIntrinsics()
+                intrinsics.task = 'object detection'
+                intrinsics.labels = self.COCO_LABELS
+                intrinsics.update_with_defaults()
 
-                self._picam2 = self._Picamera2(self._imx500.camera_num)
-                config = self._picam2.create_preview_configuration(
+                picam2 = self._Picamera2(imx500.camera_num)
+                config = picam2.create_preview_configuration(
                     controls={'FrameRate': self.frame_rate},
                     buffer_count=12,
                 )
 
                 # Model boot can take several seconds on first load.
-                self._imx500.show_network_fw_progress_bar()
-                self._picam2.start(config, show_preview=False)
+                imx500.show_network_fw_progress_bar()
+                picam2.start(config, show_preview=False)
 
                 # Let a few frames settle before reads.
                 time.sleep(0.5)
-                self._started = True
+
+                with cls._shared_camera_lock:
+                    cls._shared_imx500 = imx500
+                    cls._shared_intrinsics = intrinsics
+                    cls._shared_picam2 = picam2
+                    cls._shared_camera_started = True
+                    self._attach_shared_camera_refs()
                 return True
 
             except Exception as e:
+                if picam2 is not None:
+                    try:
+                        picam2.stop()
+                    except Exception:
+                        pass
+
+                self._clear_local_camera_refs()
+
+                if reclaim_if_busy and self._is_camera_busy_error(e) and attempt == 0:
+                    if self._reclaim_camera_from_other_kernels():
+                        continue
+
                 if not self.quiet:
                     print(f'Error starting AI camera: {e}')
-                self.stop_camera()
                 return False
+
+        return False
 
     def _parse_detections(self, metadata: Dict[str, Any]) -> List[Dict[str, Any]]:
         """Convert IMX500 inference output into notebook-friendly detection dicts."""
@@ -450,6 +623,11 @@ class AIStudentAPI:
             - frame: OpenCV-compatible ndarray
             - detections: list of {'label', 'confidence', 'box', 'category'}
         """
+        cls = type(self)
+        with cls._shared_camera_lock:
+            if (not self._started or self._picam2 is None or self._imx500 is None) and cls._shared_camera_started:
+                self._attach_shared_camera_refs()
+
         if not self._started or self._picam2 is None or self._imx500 is None:
             raise RuntimeError('AI camera not started. Call start_camera() first.')
 
@@ -465,21 +643,113 @@ class AIStudentAPI:
 
     def stop_camera(self):
         """Stop and release camera resources."""
-        with self._lock:
-            if self._picam2 is not None:
+        cls = type(self)
+        with cls._shared_camera_lock:
+            if cls._shared_picam2 is not None:
                 try:
-                    self._picam2.stop()
+                    cls._shared_picam2.stop()
                 except Exception:
                     pass
 
-            self._picam2 = None
-            self._imx500 = None
-            self._intrinsics = None
-            self._started = False
+            cls._shared_picam2 = None
+            cls._shared_imx500 = None
+            cls._shared_intrinsics = None
+            cls._shared_camera_started = False
+            self._clear_local_camera_refs()
+
+    def start_buzzer(self) -> bool:
+        """
+        Initialize (or reuse) the shared buzzer object.
+
+        Buzzer pin is fixed to GPIO17 for the classroom hardware.
+        """
+        pin = type(self)._buzzer_pin
+        cls = type(self)
+        with cls._shared_buzzer_lock:
+            if cls._shared_buzzer is not None and cls._shared_buzzer_pin == pin:
+                return True
+
+            try:
+                if cls._shared_buzzer is not None:
+                    try:
+                        cls._shared_buzzer.off()
+                    except Exception:
+                        pass
+                    cls._shared_buzzer.close()
+
+                buzzer_class = self._load_buzzer_class()
+                cls._shared_buzzer = buzzer_class(pin)
+                cls._shared_buzzer_pin = pin
+                return True
+            except Exception as e:
+                if not self.quiet:
+                    print(f'Error starting buzzer on GPIO{pin}: {e}')
+                cls._shared_buzzer = None
+                cls._shared_buzzer_pin = None
+                return False
+
+    def buzzer_on(self):
+        """Turn buzzer on."""
+        cls = type(self)
+        with cls._shared_buzzer_lock:
+            if cls._shared_buzzer is None:
+                raise RuntimeError('Buzzer not started. Call start_buzzer() first.')
+            cls._shared_buzzer.on()
+
+    def buzzer_off(self):
+        """Turn buzzer off."""
+        cls = type(self)
+        with cls._shared_buzzer_lock:
+            if cls._shared_buzzer is None:
+                raise RuntimeError('Buzzer not started. Call start_buzzer() first.')
+            cls._shared_buzzer.off()
+
+    def buzzer_beep(
+        self,
+        on_time: float = 0.1,
+        off_time: float = 0.1,
+        n: int = 1,
+        background: bool = False,
+    ):
+        """Pulse the buzzer with gpiozero's built-in beep helper."""
+        cls = type(self)
+        with cls._shared_buzzer_lock:
+            if cls._shared_buzzer is None:
+                raise RuntimeError('Buzzer not started. Call start_buzzer() first.')
+            cls._shared_buzzer.beep(
+                on_time=on_time,
+                off_time=off_time,
+                n=n,
+                background=background,
+            )
+
+    def stop_buzzer(self):
+        """Turn off and release the shared buzzer."""
+        cls = type(self)
+        with cls._shared_buzzer_lock:
+            if cls._shared_buzzer is None:
+                return
+            try:
+                cls._shared_buzzer.off()
+            except Exception:
+                pass
+            cls._shared_buzzer.close()
+            cls._shared_buzzer = None
+            cls._shared_buzzer_pin = None
+
+    def shutdown_hardware(self, stop_camera: bool = True, stop_buzzer: bool = True):
+        """Gracefully release AI hardware resources."""
+        if stop_camera:
+            self.stop_camera()
+        if stop_buzzer:
+            self.stop_buzzer()
 
     def is_running(self) -> bool:
         """Check whether camera system is currently running."""
-        return self._started and self._picam2 is not None
+        cls = type(self)
+        with cls._shared_camera_lock:
+            return cls._shared_camera_started and cls._shared_picam2 is not None
+
 
 def example_usage():
     """Example usage of the student API"""

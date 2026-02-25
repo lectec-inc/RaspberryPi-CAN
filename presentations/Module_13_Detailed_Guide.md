@@ -144,6 +144,7 @@ Day 13 of 14
 - **DISPLAY HEADER:** AUDITORY ALERTS
 - **BODY:**
   - The buzzer will provide immediate, unmistakable feedback.
+  - Trigger patterns through `ai_api.buzzer_beep(...)` so repeated cell runs remain stable without GPIO pin conflicts.
   - We will create a different beep pattern for each alert level.
 - **JUPYTER TRANSITION:** Section 3 - Complete FCW System.
 

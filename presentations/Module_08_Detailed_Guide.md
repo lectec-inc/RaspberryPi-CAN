@@ -72,13 +72,14 @@ Day 8 of 14
 ## SLIDE 5: Basic GPIO Control
 **Visual Design**
 - A simplified animation concept.
-- A line of code `buzzer.on()` is shown. This triggers an isometric render of a GPIO pin to light up in Electric Blue (#44B6E5), and a connected LED to turn on.
-- The next line `buzzer.off()` causes the light to turn off.
+- A line of code `api.buzzer_on()` is shown. This triggers an isometric render of a GPIO pin to light up in Electric Blue (#44B6E5), and a connected LED to turn on.
+- The next line `api.buzzer_off()` causes the light to turn off.
 
 **Text Content**
 - **DISPLAY HEADER:** DIGITAL ON/OFF
 - **BODY:**
   - Controlling GPIO is like flipping a light switch in code.
+  - Students should control the buzzer through `AIStudentAPI` (not direct `gpiozero.Buzzer(...)`) to avoid GPIO pin reuse errors after reruns.
   - **HIGH (ON):** Send voltage to the pin.
   - **LOW (OFF):** Stop sending voltage.
   - By turning it on and off quickly, we can create beeps.

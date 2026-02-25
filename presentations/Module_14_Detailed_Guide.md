@@ -109,6 +109,7 @@ Day 14 of 14
 - **DISPLAY HEADER:** FINAL BUILD
 - **BODY:**
   - Open `14_ADAS_Capstone.ipynb`.
+  - For buzzer alerts, use the `AIStudentAPI` buzzer helpers instead of creating raw `gpiozero.Buzzer` instances.
   - Design your system, write the code, and document your process.
 - **MISSION:** Demonstrate complete mastery of the Lectec curriculum.
 
