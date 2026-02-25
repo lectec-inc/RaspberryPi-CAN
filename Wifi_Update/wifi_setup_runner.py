@@ -1,6 +1,9 @@
 import subprocess
 import time
 
+MAIN_WIFI_PRIORITY = 10
+HOTSPOT_PRIORITY = 5
+
 
 def run_cmd(cmd, timeout=30):
     try:
@@ -11,9 +14,17 @@ def run_cmd(cmd, timeout=30):
 
 
 def check_internet(timeout=10):
-    """Check internet connectivity"""
-    success, _, _ = run_cmd(f"ping -c 2 -W {timeout} 8.8.8.8")
-    return success
+    """Check internet connectivity (DNS + HTTP)."""
+    dns_ok = run_cmd("getent hosts example.com", timeout=timeout)[0] and run_cmd(
+        "getent hosts connectivitycheck.gstatic.com", timeout=timeout
+    )[0]
+    if not dns_ok:
+        return False
+
+    http_ok = run_cmd(
+        "curl -fsS --max-time 5 https://connectivitycheck.gstatic.com/generate_204", timeout=timeout
+    )[0] or run_cmd("curl -fsS --max-time 5 https://www.google.com/generate_204", timeout=timeout)[0]
+    return http_ok
 
 
 def get_hotspot_name():
@@ -54,8 +65,11 @@ def ensure_hotspot_active():
 
 
 def setup_wifi_connection(ssid, password):
-    """Setup or update the main-wifi connection"""
+    """Setup or update the main-wifi connection."""
     print(f"🔧 Setting up main-wifi connection for: {ssid}")
+
+    # Remove stale placeholder profile if it exists.
+    run_cmd("sudo rm -f /etc/NetworkManager/system-connections/main-wifi.nmconnection", timeout=10)
 
     # Check if main-wifi connection exists
     success, _, _ = run_cmd("sudo nmcli connection show main-wifi")
@@ -71,7 +85,22 @@ def setup_wifi_connection(ssid, password):
     else:
         cmd = f'sudo nmcli dev wifi connect "{ssid}" name main-wifi'
 
-    return run_cmd(cmd, timeout=45)
+    ok, stdout, stderr = run_cmd(cmd, timeout=45)
+    if not ok:
+        return ok, stdout, stderr
+
+    # Always enforce production priorities after (re)creating profiles.
+    run_cmd(
+        f"sudo nmcli connection modify main-wifi connection.autoconnect yes connection.autoconnect-priority {MAIN_WIFI_PRIORITY}",
+        timeout=10,
+    )
+    run_cmd(
+        f"sudo nmcli connection modify lectec-ap connection.autoconnect yes connection.autoconnect-priority {HOTSPOT_PRIORITY}",
+        timeout=10,
+    )
+    run_cmd("sudo nmcli connection reload", timeout=10)
+
+    return ok, stdout, stderr
 
 
 def run_wifi_setup(ssid, password):
