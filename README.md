@@ -144,11 +144,11 @@ if vesc_api.start():
 
 ### 🤖 Option B: Start with AI Vision
 ```bash
-# Navigate to AI tutorials
-cd 02_AI_Camera_Tutorials/21_Getting_Started
+# Navigate to curriculum
+cd Curriculum
 
 # Start with introduction
-jupyter notebook 211_Introduction_to_AI.ipynb
+jupyter notebook 06_AI_Introduction.ipynb
 ```
 
 ### 🌟 Option C: Advanced Integration
@@ -167,33 +167,22 @@ RaspberryPi-CAN/
 ├── 📖 README.md                          # This comprehensive guide
 ├── 🎯 student_api.py                     # Main student API for VESC
 │
-├── 📁 01_CAN_VESC_Tutorials/             # Motor Control Series
-│   ├── 11_CAN_VESC_Fundamentals.ipynb    # Start here for motor control
-│   ├── 12_Basic_Usage_Example.ipynb      # Basic motor operations
-│   ├── 13_VESC_Dashboard.ipynb           # Live data dashboard
-│   ├── 14_Realtime_Visualization.ipynb   # Advanced data visualization
-│   ├── 15_Advanced_Control_Example.ipynb # Complex control strategies
-│   └── 16_Student_Project.ipynb          # Motor control capstone project
-│
-├── 📁 02_AI_Camera_Tutorials/            # AI Vision Series
-│   ├── 📁 21_Getting_Started/            # Level 1: Foundation
-│   │   ├── 211_Introduction_to_AI.ipynb  # AI concepts and setup
-│   │   ├── 212_AI_Camera_Systems.ipynb   # How AI cameras work
-│   │   └── 213_Live_Camera_Feed.ipynb    # First AI detection
-│   │
-│   ├── 📁 22_First_AI_Detection/         # Level 2: Core AI Skills
-│   │   ├── 221_Basic_Object_Detection.ipynb    # Real-time detection
-│   │   ├── 222_Understanding_Results.ipynb     # Confidence & analysis
-│   │   └── 223_Object_Types_Guide.ipynb        # 80+ object types
-│   │
-│   ├── 📁 23_Interactive_AI/             # Level 3: Responsive Systems
-│   │   └── 231_AI_with_Buzzer_Alerts.ipynb     # GPIO hardware integration
-│   │
-│   ├── 📁 24_Smart_Integration/          # Level 4: Multi-Sensor Fusion  
-│   │   └── 241_AI_Motor_Bridge.ipynb            # AI + motor data fusion
-│   │
-│   └── 📁 25_Real_World_Projects/        # Level 5: Applied AI
-│       └── 251_Student_Project.ipynb            # AI vision capstone project
+├── 📁 Curriculum/                        # Production curriculum notebooks
+│   ├── 01_System_Introduction.ipynb
+│   ├── 02_CAN_Fundamentals.ipynb
+│   ├── 03_Data_Visualization.ipynb
+│   ├── 04_Brake_Control.ipynb
+│   ├── 05_CAN_Capstone.ipynb
+│   ├── 06_AI_Introduction.ipynb
+│   ├── 07_Object_Detection.ipynb
+│   ├── 08_AI_Hardware_Integration.ipynb
+│   ├── 09_System_Integration.ipynb
+│   ├── 10_AI_Capstone.ipynb
+│   ├── 20_ADAS_Introduction.ipynb
+│   ├── 21_ADAS_Foundations.ipynb
+│   ├── 22_ADAS_TTC_Fundamentals.ipynb
+│   ├── 23_ADAS_FCW_AEB_Lab.ipynb
+│   └── 24_ADAS_Capstone_Validation.ipynb
 │
 ├── 📁 core/                              # Core system files
 │   ├── 🔧 main.py                        # VESC system manager
@@ -394,20 +383,20 @@ gpio readall
 ## 🎯 Getting Started Recommendations
 
 ### 🔰 **Complete Beginner?**
-**Start Here**: `01_CAN_VESC_Tutorials/11_CAN_VESC_Fundamentals.ipynb`
+**Start Here**: `Curriculum/01_System_Introduction.ipynb`
 - Learn fundamental concepts of motor control
 - Establish safety practices
 - Build confidence with hardware systems
 
 ### 🤖 **Interested in AI?**
-**Start Here**: `02_AI_Camera_Tutorials/21_Getting_Started/211_Introduction_to_AI.ipynb`
+**Start Here**: `Curriculum/06_AI_Introduction.ipynb`
 - Dive into artificial intelligence concepts
 - Experience real-time object detection
 - Build interactive AI systems
 
 ### 🌟 **Ready for Advanced Integration?**
 **Prerequisites**: Complete both tutorial series fundamentals
-**Start Here**: `02_AI_Camera_Tutorials/24_Smart_Integration/241_AI_Motor_Bridge.ipynb`
+**Start Here**: `Curriculum/09_System_Integration.ipynb`
 - Combine AI vision with motor control
 - Build intelligent autonomous systems
 - Create safety-critical applications

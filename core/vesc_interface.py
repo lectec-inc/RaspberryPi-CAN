@@ -305,8 +305,12 @@ class VESCInterface:
             controller_data = self.live_data.get(controller_id, {})
             status_data = controller_data.get(data_type)
             
-            if status_data and hasattr(status_data, field):
-                return getattr(status_data, field)
+            if status_data:
+                # status_data is a dataclass instance
+                try:
+                    return getattr(status_data, field)
+                except AttributeError:
+                    return None
             return None
     
     def get_statistics(self) -> Dict[str, int]:
