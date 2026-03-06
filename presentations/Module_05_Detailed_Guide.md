@@ -44,7 +44,7 @@
 
 ## SLIDE 4: Evaluation Rubric
 **Visual Design**
-- A stylized, blueprint-style table showing the five evaluation criteria.
+- A stylized, flat 2D blueprint-style table showing the five evaluation criteria, clean, easy to read.
 - The "Points" column is highlighted in Electric Blue (#44B6E5).
 
 **Text Content**
