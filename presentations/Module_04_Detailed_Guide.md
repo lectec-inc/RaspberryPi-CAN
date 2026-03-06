@@ -2,29 +2,8 @@
 Brake Control: Safe Intervention Engineering
 Bounded Brake Sequences and Telemetry-Gated Control
 Lectec PEV AI Curriculum
-Day 4 of 14
 
-## STYLE MANIFESTO: BLUEPRINT FUTURISM
-- **Color Palette:** STRICT White background, Solid Black text, Electric Blue (#44B6E5) accents.
-- **Typography:** Space Grotesk (Display sizes for headers).
-- **Imagery:** 3D Isometric Technical Renders. Monochromatic clay-render style with #44B6E5 energy glows.
-- **Background:** Faint, thin-line isometric white grid.
-
----
-
-## TEACHER'S GUIDE: MODULE 4 OVERVIEW
-
-**Module Goal:** Teach students to design safe intervention behavior using bounded brake ramps, telemetry checks, and cooldown logic.
-
-**Lesson Structure:**
-- **(10 min) Safety Briefing:** Bench setup, hand-spin protocol, and intervention guardrails.
-- **(10 min) Lecture:** Explain bounded brake parameters (`current_a`, `ramp_time_s`) and cooldown.
-- **(20 min) Workshop:** Students complete `04_Brake_Control.ipynb` brake-control exercises, including pseudocode-first design and blank-cell implementation.
-- **(5 min) Wrap-up:** Review profile tuning and why smooth ramping lowers physical risk.
-
----
-
-## SLIDE 1: Title Slide
+## SLIDE 1:
 **Visual Design**
 - Isometric VESC + wheel with Electric Blue control waveform.
 
@@ -35,7 +14,7 @@ Day 4 of 14
 
 ---
 
-## SLIDE 2: TODAY'S GOAL
+## SLIDE 2:
 **Visual Design**
 - Two line plots: brake current ramp-up and automatic release ramp-down.
 
@@ -48,9 +27,9 @@ Day 4 of 14
 
 ---
 
-## SLIDE 3: SAFETY PROTOCOL
+## SLIDE 3:
 **Visual Design**
-- Bench diagram with wheel off-ground and operator zones.
+- A work bench with an electric skateboard upside down laying flat and an electric scooter upside down with the handle hanging off the table edge towards the ground plane. The two vehicles are next to each other on the workbench.
 
 **Text Content**
 - **DISPLAY HEADER:** MANDATORY BENCH SETUP
@@ -62,7 +41,7 @@ Day 4 of 14
 
 ---
 
-## SLIDE 4: Brake API Contract
+## SLIDE 4: 
 **Visual Design**
 - Blueprint callout box showing API signature.
 
@@ -76,20 +55,20 @@ Day 4 of 14
 
 ---
 
-## SLIDE 5: Why Ramping Matters
+## SLIDE 5: 
 **Visual Design**
 - Compare two curves: sudden step vs smooth ramp.
 
 **Text Content**
-- **DISPLAY HEADER:** REDUCING TRANSIENT SHOCK
+- **DISPLAY HEADER:** What would happen if it went from 0-100% brake instantly?
 - **BODY:**
-  - Ramping limits abrupt torque transients.
+  - Ramping limits are the solution to abrupt torque changes.
   - Smoother force profile improves stability and student safety.
   - Predictable behavior is easier to validate in class.
 
 ---
 
-## SLIDE 6: Telemetry-Gated Intervention
+## SLIDE 6:
 **Visual Design**
 - Flowchart: `Read RPM + Temp -> Check Thresholds -> Apply Brake`.
 
@@ -102,22 +81,22 @@ Day 4 of 14
 
 ---
 
-## SLIDE 7: Pseudocode First
+## SLIDE 7:
 **Visual Design**
 - Split panel: left side plain-language logic bullets, right side simple flowchart.
 
 **Text Content**
 - **DISPLAY HEADER:** DESIGN THE LOGIC BEFORE CODING
 - **BODY:**
-  - Students co-author pseudocode live with the teacher for telemetry-gated intervention.
+  - Write pseudocode live with the teacher for telemetry-gated intervention.
   - Required gates: `abs(rpm) > 150` and `fet_temp < 70`.
   - Outcome A: apply bounded brake sequence.
   - Outcome B: no intervention.
-- **JUPYTER PROMPT:** Exercise 2.2A in Module 4 notebook is intentionally blank for student-authored pseudocode.
+- **JUPYTER:** Exercise 2.2A in Module 4 notebook is intentionally blank for student-authored pseudocode.
 
 ---
 
-## SLIDE 8: Pseudocode to Python
+## SLIDE 8:
 **Visual Design**
 - Progression graphic: student-authored pseudocode transforms into a blank Python implementation cell.
 
@@ -127,11 +106,11 @@ Day 4 of 14
   - Move line-by-line from student-authored pseudocode to executable Python.
   - Keep gate checks explicit and readable.
   - Use target intervention profile: `set_brake_current(3.0, 4.0)`.
-- **JUPYTER PROMPT:** Exercise 2.2B blank implementation cell (students fill from scratch).
+- **JUPYTER:** Exercise 2.2B blank implementation cell (students fill from scratch).
 
 ---
 
-## SLIDE 9: Cooldown Behavior
+## SLIDE 9:
 **Visual Design**
 - Timeline showing two calls; second blocked during cooldown.
 
@@ -144,7 +123,7 @@ Day 4 of 14
 
 ---
 
-## SLIDE 10: Profile Tuning
+## SLIDE 10:
 **Visual Design**
 - Table of profiles (A, s) and expected feel.
 
@@ -157,7 +136,7 @@ Day 4 of 14
 
 ---
 
-## SLIDE 11: Validation Checklist
+## SLIDE 11: 
 **Visual Design**
 - 4-step checklist with blue checkboxes.
 
@@ -171,7 +150,7 @@ Day 4 of 14
 
 ---
 
-## SLIDE 12: Engineering Mindset
+## SLIDE 12:
 **Visual Design**
 - Notebook dashboard mock showing RPM, temp, profile, and result.
 
@@ -184,7 +163,7 @@ Day 4 of 14
 
 ---
 
-## SLIDE 13: Your Turn
+## SLIDE 13: 
 **Visual Design**
 - Isometric laptop on bench with `04_Brake_Control.ipynb` open.
 
@@ -198,7 +177,7 @@ Day 4 of 14
 
 ---
 
-## SLIDE 14: Wrap-Up
+## SLIDE 14:
 **Visual Design**
 - Summary blueprint with three tags: Bounded, Smooth, Verified.
 
