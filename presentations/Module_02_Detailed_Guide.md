@@ -36,13 +36,12 @@ Day 2 of 14
 - **BODY:** 
     - Today, you will build a system that reads all 17 unique telemetry signals from your vehicle.
     - Speed, Power, Heat, and Health—all in real-time.
-- **CALLOUT:** "In 40 minutes, you will know everything your skateboard knows."
 
 ---
 
 ## SLIDE 3: Review: Your First Connection
 **Visual Design**
-- Close-up isometric render of the Raspberry Pi Zero 2W connected to the VESC via CAN wires.
+- Close-up isometric render of one Raspberry Pi Zero 2W connected to the VESC via only two CAN wires.
 - The two CAN wires (High/Low) are highlighted in Electric Blue (#44B6E5).
 
 **Text Content**
@@ -50,7 +49,6 @@ Day 2 of 14
 - **BODY:**
     - Established connection to the VESC via the VESCStudentAPI.
     - Verified the system is alive by reading battery voltage.
-- **NOTE:** Yesterday was just the handshake. Today is the conversation.
 
 ---
 
@@ -82,7 +80,7 @@ Day 2 of 14
     - **RPM:** How fast the motor is spinning.
     - **MOTOR CURRENT:** The torque/force being applied (Amperes).
     - **DUTY CYCLE:** The "throttle percentage" (0.0 to 1.0).
-- **JUPYTER TRANSITION:** Section 3.1 - Reading Basic Motor Telemetry.
+- **JUPYTER:** Section 3.1 - Reading Basic Motor Telemetry.
 
 ---
 
@@ -98,13 +96,13 @@ Day 2 of 14
     - RPM is not just a number; it's a direction.
     - **POSITIVE (+):** Forward rotation.
     - **NEGATIVE (-):** Reverse/Braking rotation.
-- **JUPYTER TRANSITION:** Section 3.2 - Direction Checker Logic.
+- **JUPYTER:** Section 3.2 - Direction Checker Logic.
 
 ---
 
 ## SLIDE 7: Power Data: Input & Load
 **Visual Design**
-- Isometric render of the Lithium-Ion Battery Pack.
+- Isometric render of the Lithium-Ion Battery Pack containing six cylindrical 18650 battery cells.
 - The main power leads (XT60 connector) are highlighted in Electric Blue (#44B6E5).
 - A transparent "pulse" effect travels from the battery toward the controller.
 
@@ -114,7 +112,7 @@ Day 2 of 14
     - **INPUT VOLTAGE:** Your fuel gauge. Higher = more charge.
     - **INPUT CURRENT:** The load on the battery.
 - **TECH NOTE:** High input current during a hill climb creates battery sag (voltage drop).
-- **JUPYTER TRANSITION:** Section 4.1 - Reading Power Data.
+- **JUPYTER:** Section 4.1 - Reading Power Data.
 
 ---
 
@@ -130,7 +128,7 @@ Day 2 of 14
     - **FET TEMP:** The heat on the controller's "muscles."
     - **MOTOR TEMP:** Heat inside the motor windings.
 - **CRITICAL:** If these values exceed 80°C, the system will automatically throttle power.
-- **JUPYTER TRANSITION:** Section 4.2 - Temperature Threshold Warnings.
+- **JUPYTER:** Section 4.2 - Temperature Threshold Warnings.
 
 ---
 
@@ -150,7 +148,7 @@ Day 2 of 14
 
 ## SLIDE 10: The Magic Function
 **Visual Design**
-- A clean, monochromatic clay-render "terminal window" centered on the slide.
+- A clean, monochromatic clay-render "terminal window".
 - It displays a snippet of code: `vesc.get_all_telemetry()`
 - The text is Solid Black, but the dictionary braces `{ }` are Electric Blue (#44B6E5).
 
@@ -160,14 +158,13 @@ Day 2 of 14
     - Instead of calling 17 telemetry getters, we call one.
     - `get_all_telemetry()` returns a Python Dictionary.
     - High-speed, efficient data retrieval.
-- **JUPYTER TRANSITION:** Section 5.1 - The Master Function Demonstration.
+- **JUPYTER:** Section 5.1 - The Master Function Demonstration.
 
 ---
 
 ## SLIDE 11: When Data is Zero
 **Visual Design**
-- Isometric render of the skateboard resting on a bench (Bench Test Stand).
-- The wheels are stationary.
+- Isometric render of the scooter resting on a bench.
 - A large Electric Blue (#44B6E5) "0.00" is projected above the motor.
 
 **Text Content**
@@ -181,9 +178,8 @@ Day 2 of 14
 
 ## SLIDE 12: Your Turn
 **Visual Design**
-- Final isometric view of the full skateboard system.
+- Final isometric view of the full skateboard system, hoirzontal across the left third and center of the screen.
 - All hardware components (Pi, VESC, Motor, Battery) pulse once in Electric Blue (#44B6E5).
-- Large text centered in the white space.
 
 **Text Content**
 - **DISPLAY HEADER:** DATA DOMINATION
