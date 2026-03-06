@@ -6,7 +6,7 @@ Day 3 of 14
 
 ---
 
-## SLIDE 1: Title Slide
+## SLIDE 1:
 **Visual Design**
 - Monochromatic clay render of a futuristic, holographic car dashboard floating in 3D space.
 - The interface shows a speedometer, battery gauge, and temperature reading.
@@ -20,7 +20,7 @@ Day 3 of 14
 
 ---
 
-## SLIDE 2: TODAY'S GOAL
+## SLIDE 2:
 **Visual Design**
 - A 3D isometric Jupyter Notebook interface is shown.
 - From a code cell, a vibrant, real-time dashboard emerges as a 3D projection.
@@ -34,7 +34,7 @@ Day 3 of 14
 
 ---
 
-## SLIDE 3: Why Visualize?
+## SLIDE 3: 
 **Visual Design**
 - A two-panel comparison.
 - **Left Panel:** A chaotic stream of black numbers scrolling vertically.
@@ -49,7 +49,7 @@ Day 3 of 14
 
 ---
 
-## SLIDE 4: Real-Time Updates
+## SLIDE 4:
 **Visual Design**
 - An isometric terminal window shows `print("...")`. The `clear_output()` function is shown.
 
@@ -63,7 +63,7 @@ Day 3 of 14
 
 ---
 
-## SLIDE 5: Dashboard Design
+## SLIDE 5:
 **Visual Design**
 - A blueprint-style layout of a dashboard grid (3x1).
 - Each grid cell is labeled: "VOLTAGE", "TEMPERATURE", "SPEED".
@@ -79,7 +79,7 @@ Day 3 of 14
 
 ---
 
-## SLIDE 6: Color Coding
+## SLIDE 6:
 **Visual Design**
 - Three simple, colored clay-render blocks in a row.
 - Left block is a calm Green. Middle is a cautious Yellow. Right is a vibrant Red.
@@ -95,7 +95,7 @@ Day 3 of 14
 
 ---
 
-## SLIDE 7: HTML in Jupyter
+## SLIDE 7:
 **Visual Design**
 - An isometric code block showing Python code: `display(HTML("..."))`.
 - From this block, a 3D-rendered, formatted text box emerges, showing stylized text with colors and bolding. The `display(HTML(...))` text glows Electric Blue (#44B6E5).
@@ -110,7 +110,7 @@ Day 3 of 14
 
 ---
 
-## SLIDE 8: Time-Series Graphs
+## SLIDE 8:
 **Visual Design**
 - A 3D isometric line graph being drawn in real-time.
 - The X-axis is "Time" and the Y-axis is "RPM".
@@ -129,7 +129,7 @@ Day 3 of 14
 
 ---
 
-## SLIDE 9: Car Dashboard Comparison
+## SLIDE 9:
 **Visual Design**
 - Side-by-side comparison.
 - **Left:** A real, modern car's digital dashboard (e.g., Audi Virtual Cockpit).
@@ -145,7 +145,7 @@ Day 3 of 14
 
 ---
 
-## SLIDE 10: Your Turn
+## SLIDE 10:
 **Visual Design**
 - Final isometric view of the full skateboard system.
 - The Raspberry Pi on top has an Electric Blue (#44B6E5) glow, indicating it's the "brain" processing the visualization.
