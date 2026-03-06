@@ -4,12 +4,6 @@ Real-Time Data Visualization with Matplotlib
 Lectec PEV AI Curriculum
 Day 3 of 14
 
-## STYLE MANIFESTO: BLUEPRINT FUTURISM
-- **Color Palette:** STRICT White background, Solid Black text, Electric Blue (#44B6E5) accents.
-- **Typography:** Space Grotesk (Display sizes for headers).
-- **Imagery:** 3D Isometric Technical Renders. Monochromatic clay-render style with #44B6E5 "energy glows" on highlights.
-- **Background:** Faint, thin-line isometric white grid.
-
 ---
 
 ## SLIDE 1: Title Slide
@@ -37,7 +31,6 @@ Day 3 of 14
 - **BODY:**
   - Today, you will transform raw data into a live, professional dashboard.
   - You will build a system that displays speed, temperature, and voltage with color-coded alerts.
-- **CALLOUT:** "In 40 minutes, you will build the instrument panel for your vehicle."
 
 ---
 
@@ -58,8 +51,7 @@ Day 3 of 14
 
 ## SLIDE 4: Real-Time Updates
 **Visual Design**
-- An isometric animation sequence (described, not animated on slide).
-- 1. A terminal window shows `print("...")`. 2. A new line appears below. 3. The `clear_output()` function is shown, and the entire window flashes and is replaced by a single, updated line of text. The `clear_output()` text itself glows Electric Blue (#44B6E5).
+- An isometric terminal window shows `print("...")`. The `clear_output()` function is shown.
 
 **Text Content**
 - **DISPLAY HEADER:** THE JUPYTER LOOP
@@ -67,7 +59,7 @@ Day 3 of 14
   - We will use a `while` loop to continuously fetch data.
   - The `clear_output()` command erases the cell, allowing us to print fresh data in the same spot.
   - `time.sleep()` controls the update speed.
-- **JUPYTER TRANSITION:** Section 2 - Live Updates.
+- **JUPYTER:** Section 2 - Live Updates.
 
 ---
 
@@ -114,7 +106,7 @@ Day 3 of 14
   - Jupyter can render basic HTML.
   - We can use this to create formatted panels, apply colors, and build layouts.
   - It's like a mini web page inside your notebook.
-- **JUPYTER TRANSITION:** Section 3 - Color-Coded Dashboard.
+- **JUPYTER:** Section 3 - Color-Coded Dashboard.
 
 ---
 
@@ -133,7 +125,7 @@ Day 3 of 14
     1.  Collect data points in a list.
     2.  Plot the list to see the trend.
 - **APPLICATION:** Perfect for analyzing performance or diagnosing issues.
-- **JUPYTER TRANSITION:** Section 4 - Graphing.
+- **JUPYTER:** Section 4 - Graphing.
 
 ---
 
