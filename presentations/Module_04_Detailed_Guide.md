@@ -1,17 +1,10 @@
-# MODULE 4
-Brake Control: Safe Intervention Engineering
-Bounded Brake Sequences and Telemetry-Gated Control
-Lectec PEV AI Curriculum
-
 ## SLIDE 1:
 **Visual Design**
-- Isometric VESC + wheel with Electric Blue control waveform.
+- Isometric VESC + motor from an electric skateboard with Electric Blue control waveform.
 
 **Text Content**
 - **DISPLAY HEADER:** MODULE 4: BRAKE CONTROL
 - **SUBTEXT:** Safe Intervention Engineering
-- **BOTTOM FOOTER:** Lectec PEV AI Curriculum | Day 4 of 14
-
 ---
 
 ## SLIDE 2:
