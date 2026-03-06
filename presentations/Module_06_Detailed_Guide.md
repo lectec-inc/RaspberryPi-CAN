@@ -1,33 +1,33 @@
-# MODULE 6
-Introduction to Artificial Intelligence
-How AI Sees and Thinks
-Lectec PEV AI Curriculum
-Day 6 of 14
+Style Manifesto: Professional "Blueprint Futurism" for Lectec STEM Kits. Color Palette: STRICT White background, Solid Black text, and Electric Blue (#44B6E5) for accents. No gradients, no extra colors. Typography: Space Grotesk. Use "Display" sizes for headers (very large). All body text must be aligned to a strict vertical grid. Imagery Requirements:
 
-## STYLE MANIFESTO: BLUEPRINT FUTURISM
-- **Color Palette:** STRICT White background, Solid Black text, Electric Blue (#44B6E5) accents.
-- **Typography:** Space Grotesk (Display sizes for headers).
-- **Imagery:** 3D Isometric Technical Renders. Monochromatic clay-render style with #44B6E5 "energy glows" on highlights.
-- **Background:** Faint, thin-line isometric white grid.
+Subject: 3D Isometric Technical Renders.
 
+Visual Quality: Monochromatic clay-render style with #44B6E5 "energy glows" or highlights on specific components (like a wheel or motor).
+
+Background: A faint, thin-line isometric white grid must be visible across the entire slide.
+
+Execution: High-end architectural visualization style. No "clipart," no photos, and strictly no logos. Slide Composition: > 
+
+Use "Rule of Thirds": Place a large 3D component on one third of the slide, and text on the opposite third. Leave the middle third as empty white space.
+
+Follow these slide contents exactly:
 ---
 
 ## SLIDE 1: Title Slide
 **Visual Design**
-- A stylized, monochromatic 3D render of a human brain on the left and a glowing neural network on the right.
+- A stylized, monochromatic 3D render of a human brain on the left and a glowing neural network.
 - A single, thin Electric Blue (#44B6E5) line connects the two, symbolizing the transfer of logic.
 - Faint isometric grid background.
 
 **Text Content**
 - **DISPLAY HEADER:** MODULE 6: AI INTRODUCTION
 - **SUBTEXT:** Teaching a Machine to See
-- **BOTTOM FOOTER:** Lectec PEV AI Curriculum | Day 6 of 14
 
 ---
 
-## SLIDE 2: TODAY'S GOAL
+## SLIDE 2: 
 **Visual Design**
-- A 3D isometric render of the IMX500 AI camera.
+- A 3D isometric render of the Sony IMX500 AI camera.
 - From the lens, a data stream flows to a holographic label that reads: "PERSON: 98%".
 - The percentage "98%" glows in Electric Blue (#44B6E5).
 
@@ -36,11 +36,10 @@ Day 6 of 14
 - **BODY:**
   - Today, you will understand how an AI goes from pixels to a confident decision.
   - You will build a system to filter AI detections, trusting what is real and discarding what is not.
-- **CALLOUT:** "In 40 minutes, you will learn to think like an AI."
 
 ---
 
-## SLIDE 3: AI is Everywhere
+## SLIDE 3:
 **Visual Design**
 - A grid of four monochromatic icons representing common AI applications.
 - 1. A smartphone (facial recognition). 2. A car (self-driving). 3. A shopping cart (recommendations). 4. A game controller (smart NPCs).
@@ -54,7 +53,7 @@ Day 6 of 14
 
 ---
 
-## SLIDE 4: Traditional Code vs. AI
+## SLIDE 4:
 **Visual Design**
 - A two-panel comparison.
 - **Left Panel:** A rigid flowchart with "IF/THEN" logic, representing traditional code.
@@ -65,11 +64,11 @@ Day 6 of 14
 - **BODY:**
   - **TRADITIONAL CODE:** You write explicit rules. `If fur == true AND whiskers == true...` (Brittle and impossible to cover all cases).
   - **ARTIFICIAL INTELLIGENCE:** You provide examples, and the AI learns the rules itself.
-- **JUPYTER TRANSITION:** Section 2 - AI vs. Traditional Code.
+- **JUPYTER:** Section 2 - AI vs. Traditional Code.
 
 ---
 
-## SLIDE 5: How Humans See
+## SLIDE 5:
 **Visual Design**
 - A simple three-step diagram.
 - 1. Icon of an eye. 2. An arrow. 3. Icon of a brain.
@@ -84,7 +83,7 @@ Day 6 of 14
 
 ---
 
-## SLIDE 6: How AI Sees
+## SLIDE 6:
 **Visual Design**
 - A parallel three-step diagram.
 - 1. A grid of pixels. 2. An arrow. 3. A structured, blocky neural network.
@@ -99,7 +98,7 @@ Day 6 of 14
 
 ---
 
-## SLIDE 7: Neural Networks
+## SLIDE 7:
 **Visual Design**
 - A simplified, 3D isometric view of a neural network.
 - It shows an input layer (a grid of pixels), one hidden layer of "neurons" (glowing spheres), and an output layer (text labels).
@@ -113,7 +112,7 @@ Day 6 of 14
 
 ---
 
-## SLIDE 8: Training AI
+## SLIDE 8:
 **Visual Design**
 - An isometric animation concept.
 - Thousands of tiny images (dogs, cats, cars) are shown flowing into a large, central "AI Core" model.
@@ -128,9 +127,9 @@ Day 6 of 14
 
 ---
 
-## SLIDE 9: The IMX500 Camera
+## SLIDE 9:
 **Visual Design**
-- A beautiful, high-detail isometric clay render of the IMX500 AI camera sensor.
+- A beautiful, high-detail isometric clay render of the Sony IMX500 AI camera sensor.
 - The chip in the center of the sensor has a powerful Electric Blue (#44B6E5) glow, indicating it's the "brain on board".
 
 **Text Content**
@@ -142,7 +141,7 @@ Day 6 of 14
 
 ---
 
-## SLIDE 10: Edge AI Advantage
+## SLIDE 10:
 **Visual Design**
 - Three icons in a row, each with an Electric Blue (#44B6E5) checkmark.
 - 1. A stopwatch (Speed). 2. A shield (Privacy). 3. A lightning bolt (Low Power).
@@ -156,7 +155,7 @@ Day 6 of 14
 
 ---
 
-## SLIDE 11: Confidence Scores
+## SLIDE 11:
 **Visual Design**
 - A horizontal bar, like a loading bar, from 0.0 to 1.0.
 - A marker is at the 0.87 position.
@@ -171,7 +170,7 @@ Day 6 of 14
 
 ---
 
-## SLIDE 12: Interpreting Confidence
+## SLIDE 12:
 **Visual Design**
 - Three example images with AI outputs.
 - 1. A clear photo of a cat. Output: `CAT: 0.98` (High).
@@ -187,7 +186,7 @@ Day 6 of 14
 
 ---
 
-## SLIDE 13: Why Confidence Matters
+## SLIDE 13:
 **Visual Design**
 - An isometric render of a "filter" or "sieve".
 - Many detections (represented as small cubes) flow in.
@@ -198,7 +197,7 @@ Day 6 of 14
 - **BODY:**
   - Without a filter, your system will be flooded with false alarms.
   - By setting a **confidence threshold**, we only act on detections we trust.
-- **JUPYTER TRANSITION:** Section 3 - Confidence Scores.
+- **JUPYTER :** Section 3 - Confidence Scores.
 
 ---
 
@@ -214,7 +213,7 @@ Day 6 of 14
   - The AI tells us *what* it sees (label) and *how sure* it is (confidence).
   - The **bounding box** tells us *where* it is.
   - It's a set of coordinates defining a rectangle around the object.
-- **JUPYTER TRANSITION:** Section 4 - Bounding Boxes.
+- **JUPYTER:** Section 4 - Bounding Boxes.
 
 ---
 
@@ -229,4 +228,4 @@ Day 6 of 14
 - **BODY:**
   - Complete the exercises in your notebook.
   - Experiment with different thresholds to see how the AI's "decisions" change.
-- **MISSION:** Section 5 - Knowledge Check.
+- **Jupyter:** Section 5 - Knowledge Check.
