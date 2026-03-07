@@ -1,43 +1,32 @@
-# MODULE 11
-Advanced Driver Assistance Systems (ADAS)
-Connecting Your Project to the Automotive Industry
-Lectec PEV AI Curriculum
-Day 11 of 14
+# MODULE 20
+Style Manifesto: Professional "Blueprint Futurism" for Lectec STEM Kits. Color Palette: STRICT White background, Solid Black text, and Electric Blue (#44B6E5) for accents. No gradients, no extra colors. Typography: Space Grotesk. Use "Display" sizes for headers (very large). All body text must be aligned to a strict vertical grid. Imagery Requirements:
 
-## STYLE MANIFESTO: BLUEPRINT FUTURISM
-- **Color Palette:** STRICT White background, Solid Black text, Electric Blue (#44B6E5) accents.
-- **Typography:** Space Grotesk (Display sizes for headers).
-- **Imagery:** 3D Isometric Technical Renders. Monochromatic clay-render style with #44B6E5 "energy glows" on highlights.
-- **Background:** Faint, thin-line isometric white grid.
+Subject: 3D Isometric Technical Renders.
 
----
+Visual Quality: Monochromatic clay-render style with #44B6E5 "energy glows" or highlights on specific components (like a wheel or motor).
 
-## TEACHER'S GUIDE: MODULE 11 OVERVIEW
+Background: A faint, thin-line isometric white grid must be visible across the entire slide.
 
-**Module Goal:** To provide students with a comprehensive understanding of the ADAS landscape in the modern automotive industry. This module is less about coding and more about building context, understanding terminology, and seeing how their skateboard project relates to billion-dollar automotive systems.
+Execution: High-end architectural visualization style. No "clipart," no photos, and strictly no logos. Slide Composition: > 
 
-**Lesson Structure:**
-- **(5 min) Introduction:** Hook the students by showing a video of a modern ADAS system in action (like Tesla's Autopilot or Ford's BlueCruise).
-- **(20 min) Lecture:** This is a content-heavy day. Use the 18 slides to walk through the history, features, SAE levels, and sensor technologies of ADAS.
-- **(15 min) Workshop:** Students work through the Jupyter notebook, which focuses on research, classification, and comparison exercises.
-- **(5 min) Wrap-up & Preview:** Solidify the connection between their skateboard project and real ADAS, and preview the next lesson where they will build the core algorithm for a Forward Collision Warning system.
+Use "Rule of Thirds": Place a large 3D component on one third of the slide, and text on the opposite third. Leave the middle third as empty white space.
 
----
+Follow these slide contents exactly:
+--
 
-## SLIDE 1: Title Slide
+## SLIDE 1:
 **Visual Design**
 - A sleek, futuristic, monochromatic car rendered in the clay style.
 - Lines of Electric Blue (#44B6E5) radiate from the car's sensors (windshield camera, corner radars), creating a "sensor bubble" around it.
 - Faint isometric grid background.
 
 **Text Content**
-- **DISPLAY HEADER:** MODULE 11: ADAS INTRODUCTION
+- **DISPLAY HEADER:** MODULE 20: ADAS INTRODUCTION
 - **SUBTEXT:** From Skateboard to Self-Driving
-- **BOTTOM FOOTER:** Lectec PEV AI Curriculum | Day 11 of 14
 
 ---
 
-## SLIDE 2: TODAY'S GOAL
+## SLIDE 2:
 **Visual Design**
 - A 3D isometric render of the Lectec skateboard.
 - A dotted Electric Blue (#44B6E5) line connects it to a full-size, modern electric car.
@@ -51,7 +40,7 @@ Day 11 of 14
 
 ---
 
-## SLIDE 3: What is ADAS?
+## SLIDE 3: 
 **Visual Design**
 - An icon of a driver with their hands on a steering wheel, looking alert.
 - A "shield" icon, glowing in Electric Blue (#44B6E5), is overlaid on the driver, symbolizing assistance and safety.
@@ -65,7 +54,7 @@ Day 11 of 14
 
 ---
 
-## SLIDE 4: ADAS Timeline
+## SLIDE 4:
 **Visual Design**
 - A horizontal timeline rendered in the blueprint style.
 - **1978:** ABS icon.
@@ -82,7 +71,7 @@ Day 11 of 14
 
 ---
 
-## SLIDE 5: Common ADAS Features
+## SLIDE 5: 
 **Visual Design**
 - A large grid of clean, monochromatic icons representing 10-15 different ADAS features (FCW, AEB, LKA, ACC, etc.).
 - The grid layout is clean and technical.
@@ -91,26 +80,24 @@ Day 11 of 14
 - **DISPLAY HEADER:** THE FEATURE SET
 - **BODY:**
   - Modern cars have a huge suite of ADAS features. We will cover the most important ones.
-- **JUPYTER TRANSITION:** Section 2 - ADAS Features Deep Dive.
+- **JUPYTER:** Section 2 - ADAS Features Deep Dive.
 
 ---
 
-## SLIDE 6: Forward Collision Warning (FCW)
+## SLIDE 6:
 **Visual Design**
 - A simple animation concept. A car is driving. A second car in front of it suddenly brakes.
 - A large, red "WARNING" text with a speaker icon appears on the first car's windshield.
-- **This entire slide is outlined in Electric Blue (#44B6E5) to signify "We will build this!"**
 
 **Text Content**
 - **DISPLAY HEADER:** FORWARD COLLISION WARNING
 - **BODY:**
   - **WHAT IT DOES:** Detects a potential collision with an object ahead and alerts the driver.
   - **RESPONSE:** Audio beep, visual warning light.
-  - **This is the system you will build in this module.**
 
 ---
 
-## SLIDE 7: Automatic Emergency Braking (AEB)
+## SLIDE 7: 
 **Visual Design**
 - The same scene as the previous slide, but a step later.
 - After the "WARNING" appears, the car's brakes are shown engaging automatically (represented by glowing blue brake discs).
@@ -123,7 +110,7 @@ Day 11 of 14
 
 ---
 
-## SLIDE 8: Lane Departure Warning (LDW)
+## SLIDE 8: 
 **Visual Design**
 - A top-down view of a car drifting out of its lane.
 - The lane line that is being crossed flashes in Electric Blue (#44B6E5). A subtle steering wheel vibration icon is shown.
@@ -136,7 +123,7 @@ Day 11 of 14
 
 ---
 
-## SLIDE 9: Adaptive Cruise Control (ACC)
+## SLIDE 9:
 **Visual Design**
 - A top-down view of two cars. The front car is slowing down.
 - The car behind is shown automatically reducing its speed to maintain a safe following distance, which is visualized as a glowing blue bar.
@@ -149,7 +136,7 @@ Day 11 of 14
 
 ---
 
-## SLIDE 10: Blind Spot Detection
+## SLIDE 10: 
 **Visual Design**
 - A top-down view of a car. A second car is in its blind spot.
 - A warning light icon, glowing Electric Blue (#44B6E5), is shown on the first car's side mirror.
@@ -162,7 +149,7 @@ Day 11 of 14
 
 ---
 
-## SLIDE 11: SAE Autonomy Levels
+## SLIDE 11:
 **Visual Design**
 - A large, bold graphic showing a staircase with 6 steps, labeled 0 through 5.
 - The steps are rendered in the blueprint style.
@@ -172,11 +159,11 @@ Day 11 of 14
 - **BODY:**
   - The Society of Automotive Engineers (SAE) created a standard scale to classify self-driving capabilities.
   - These levels provide a common language for engineers, regulators, and consumers.
-- **JUPYTER TRANSITION:** Section 3 - SAE Autonomy Levels.
+- **JUPYTER:** Section 3 - SAE Autonomy Levels.
 
 ---
 
-## SLIDE 12: Levels 0-2
+## SLIDE 12: 
 **Visual Design**
 - The staircase graphic is shown again, but only steps 0, 1, and 2 are highlighted.
 - An icon of a human driver is prominently displayed above these steps, with the text "YOU ARE DRIVING".
@@ -191,7 +178,7 @@ Day 11 of 14
 
 ---
 
-## SLIDE 13: Levels 3-5
+## SLIDE 13:
 **Visual Design**
 - The staircase graphic, with steps 3, 4, and 5 highlighted.
 - An icon of a computer chip, glowing Electric Blue (#44B6E5), is shown above these steps, with the text "THE CAR IS DRIVING".
@@ -205,7 +192,7 @@ Day 11 of 14
 
 ---
 
-## SLIDE 14: Where Cars Are Today
+## SLIDE 14:
 **Visual Design**
 - A simple bar chart.
 - Most production cars today (Tesla, Ford, GM) are shown at Level 2.
@@ -221,7 +208,7 @@ Day 11 of 14
 
 ---
 
-## SLIDE 15: Sensors: Camera
+## SLIDE 15:
 **Visual Design**
 - An isometric cutaway of a car's windshield-mounted camera module.
 - The camera's cone of vision is shown, and within it, it correctly identifies a stop sign, a pedestrian, and lane lines.
@@ -234,7 +221,7 @@ Day 11 of 14
 
 ---
 
-## SLIDE 16: Sensors: Radar & Lidar
+## SLIDE 16:
 **Visual Design**
 - Two icons side-by-side.
 - **RADAR:** Emits radio waves (concentric rings).
@@ -245,11 +232,11 @@ Day 11 of 14
 - **BODY:**
   - **RADAR:** Excellent at measuring distance and speed, works in any weather. Poor at classification.
   - **LIDAR:** Creates a precise 3D point map of the world. Excellent at detecting shape and distance. Very expensive, can be affected by weather.
-- **JUPYTER TRANSITION:** Section 4 - Sensor Comparison.
+- **JUPYTER:** Section 4 - Sensor Comparison.
 
 ---
 
-## SLIDE 17: Company Comparison
+## SLIDE 17:
 **Visual Design**
 - A two-column comparison table.
 - **Left (Tesla):** An icon of a camera with the text "Vision Only".
@@ -263,13 +250,13 @@ Day 11 of 14
 
 ---
 
-## SLIDE 18: Your Skateboard = Mini ADAS
+## SLIDE 18:
 **Visual Design**
 - A final isometric render of the Lectec skateboard.
 - Callout lines point to the components and label them with ADAS terminology.
 - **AI Camera:** "VISION SENSOR"
 - **VESC RPM data:** "SPEED SENSOR"
-- **Raspberry Pi:** "FUSION ENGINE"
+- **Raspberry Pi Zero 2W:** "FUSION ENGINE"
 
 **Text Content**
 - **DISPLAY HEADER:** YOUR TEST PLATFORM
@@ -277,4 +264,3 @@ Day 11 of 14
   - The system you have built is a perfect, small-scale ADAS development platform.
   - You have a vision sensor, a speed sensor, and a computer to fuse the data.
   - Now, let's build a real ADAS feature with it.
-- **PREVIEW:** Tomorrow, we build a Time-to-Collision calculator.
