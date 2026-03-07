@@ -1,43 +1,33 @@
 # MODULE 10
-AI Capstone Project
-Building an Integrated System
-Lectec PEV AI Curriculum
-Day 10 of 14
+Style Manifesto: Professional "Blueprint Futurism" for Lectec STEM Kits. Color Palette: STRICT White background, Solid Black text, and Electric Blue (#44B6E5) for accents. No gradients, no extra colors. Typography: Space Grotesk. Use "Display" sizes for headers (very large). All body text must be aligned to a strict vertical grid. Imagery Requirements:
 
-## STYLE MANIFESTO: BLUEPRINT FUTURISM
-- **Color Palette:** STRICT White background, Solid Black text, Electric Blue (#44B6E5) accents.
-- **Typography:** Space Grotesk (Display sizes for headers).
-- **Imagery:** 3D Isometric Technical Renders. Monochromatic clay-render style with #44B6E5 "energy glows" on highlights.
-- **Background:** Faint, thin-line isometric white grid.
+Subject: 3D Isometric Technical Renders.
 
----
+Visual Quality: Monochromatic clay-render style with #44B6E5 "energy glows" or highlights on specific components (like a wheel or motor).
 
-## TEACHER'S GUIDE: MODULE 10 OVERVIEW
+Background: A faint, thin-line isometric white grid must be visible across the entire slide.
 
-**Module Goal:** This is the second of three capstone projects. Students will independently design and implement a complete project that meaningfully integrates AI camera detection with CAN bus motor telemetry. This project serves as a summative assessment for Modules 1-9.
+Execution: High-end architectural visualization style. No "clipart," no photos, and strictly no logos. Slide Composition: > 
 
-**Lesson Structure:** This is not a traditional lecture day.
-- **(5 min) Introduction:** Briefly present the goal for the day: to build a complete, custom integrated project.
-- **(5 min) Project Options:** Walk through the project options to spark ideas.
-- **(30 min) Workshop:** Students work independently or in pairs on their chosen project within the `10_AI_Capstone.ipynb`. Circulate to assist, debug, and challenge.
-- **(5 min) Wrap-up:** Have students save their work and prepare for potential demonstrations next class if needed.
+Use "Rule of Thirds": Place a large 3D component on one third of the slide, and text on the opposite third. Leave the middle third as empty white space.
+
+Follow these slide contents exactly:
 
 ---
 
-## SLIDE 1: Title Slide
+## SLIDE 1: 
 **Visual Design**
-- A large, central isometric render of a blueprint with technical drawings.
+- A large, isometric render of a blueprint with technical drawings.
 - On top of the blueprint is a single, glowing Electric Blue (#44B6E5) cube, representing the "core idea" or the project itself.
 - Faint isometric grid background.
 
 **Text Content**
 - **DISPLAY HEADER:** MODULE 10: AI CAPSTONE
 - **SUBTEXT:** Design, Build, Demonstrate
-- **BOTTOM FOOTER:** Lectec PEV AI Curriculum | Day 10 of 14
 
 ---
 
-## SLIDE 2: TODAY'S GOAL
+## SLIDE 2:
 **Visual Design**
 - An isometric render of a student's hands assembling the final project—a combination of the VESC, Pi, and AI camera, all connected.
 - The connections between the components are glowing Electric Blue (#44B6E5).
@@ -47,16 +37,15 @@ Day 10 of 14
 - **BODY:**
   - Today, you will become the engineer.
   - You will use everything you have learned to design and build your own unique, integrated AI + CAN system.
-- **CALLOUT:** "This is not an exercise. This is a project."
-
 ---
 
-## SLIDE 3: Project Options
+## SLIDE 3:
 **Visual Design**
 - A grid of three simple, monochromatic icons representing the project ideas.
 - **Icon A:** A shield with a car inside (Safety Assistant).
 - **Icon B:** A parking cone with proximity lines (Parking Helper).
 - **Icon C:** A graph with a magnifying glass (Traffic Monitor).
+- **Icon D:** A question mark (Your Own Idea).
 
 **Text Content**
 - **DISPLAY HEADER:** PROJECT OPTIONS
@@ -68,9 +57,9 @@ Day 10 of 14
 
 ---
 
-## SLIDE 4: Evaluation Rubric
+## SLIDE 4: 
 **Visual Design**
-- A stylized, blueprint-style table showing the five evaluation criteria.
+- A stylized, flat 2D blueprint-style table showing the five evaluation criteria.
 - The "Points" column is highlighted in Electric Blue (#44B6E5).
 
 **Text Content**
@@ -84,7 +73,7 @@ Day 10 of 14
 
 ---
 
-## SLIDE 5: Your Turn
+## SLIDE 5:
 **Visual Design**
 - An open, empty Jupyter Notebook is shown in isometric 3D, with "AI Capstone Project" in the header.
 - A blinking cursor, glowing in Electric Blue (#44B6E5), waits in the first code cell.
@@ -95,4 +84,3 @@ Day 10 of 14
   - Open `10_AI_Capstone.ipynb`.
   - Review the project options and rubric.
   - Start building.
-- **MISSION:** Demonstrate mastery of the complete system.
