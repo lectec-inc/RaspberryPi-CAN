@@ -1,46 +1,46 @@
 # MODULE 8
-AI + Physical Response
-Triggering Hardware with AI
-Lectec PEV AI Curriculum
-Day 8 of 14
+Style Manifesto: Professional "Blueprint Futurism" for Lectec STEM Kits. Color Palette: STRICT White background, Solid Black text, and Electric Blue (#44B6E5) for accents. No gradients, no extra colors. Typography: Space Grotesk. Use "Display" sizes for headers (very large). All body text must be aligned to a strict vertical grid. Imagery Requirements:
 
-## STYLE MANIFESTO: BLUEPRINT FUTURISM
-- **Color Palette:** STRICT White background, Solid Black text, Electric Blue (#44B6E5) accents.
-- **Typography:** Space Grotesk (Display sizes for headers).
-- **Imagery:** 3D Isometric Technical Renders. Monochromatic clay-render style with #44B6E5 "energy glows" on highlights.
-- **Background:** Faint, thin-line isometric white grid.
+Subject: 3D Isometric Technical Renders.
 
+Visual Quality: Monochromatic clay-render style with #44B6E5 "energy glows" or highlights on specific components (like a wheel or motor).
+
+Background: A faint, thin-line isometric white grid must be visible across the entire slide.
+
+Execution: High-end architectural visualization style. No "clipart," no photos, and strictly no logos. Slide Composition: > 
+
+Use "Rule of Thirds": Place a large 3D component on one third of the slide, and text on the opposite third. Leave the middle third as empty white space.
+
+Follow these slide contents exactly:
 ---
 
-## SLIDE 1: Title Slide
+## SLIDE 1:
 **Visual Design**
-- A central, monochromatic 3D render of the Raspberry Pi Zero 2W.
+- A monochromatic 3D render of the Raspberry Pi Zero 2W.
 - An Electric Blue (#44B6E5) "energy pulse" originates from the GPIO pins and travels outwards, transforming into a soundwave icon.
 - Faint isometric grid background.
 
 **Text Content**
 - **DISPLAY HEADER:** MODULE 8: AI + HARDWARE
 - **SUBTEXT:** From Detection to Physical Action
-- **BOTTOM FOOTER:** Lectec PEV AI Curriculum | Day 8 of 14
 
 ---
 
-## SLIDE 2: TODAY'S GOAL
+## SLIDE 2: 
 **Visual Design**
 - A 3D isometric scene showing the AI camera detecting a "person".
 - A data line flows from the camera to the Raspberry Pi's GPIO pins.
-- From the GPIO pins, a wire connects to a buzzer, which is emitting visible, concentric soundwave rings in Electric Blue (#44B6E5).
+- From the GPIO pins, a wire connects to a circular buzzer, which is emitting visible, concentric soundwave rings in Electric Blue (#44B6E5).
 
 **Text Content**
 - **DISPLAY HEADER:** THE ALERT SYSTEM
 - **BODY:**
   - Today, you will make your AI interact with the real world.
   - You will build a system that sounds an alarm when it detects a specific object.
-- **CALLOUT:** "In 40 minutes, your AI will have a voice."
 
 ---
 
-## SLIDE 3: GPIO Introduction
+## SLIDE 3:
 **Visual Design**
 - A close-up, high-detail isometric render of the Raspberry Pi's 40-pin GPIO header.
 - Several pins are highlighted with Electric Blue (#44B6E5) and labeled (e.g., "5V", "GND", "GPIO 17").
@@ -54,7 +54,7 @@ Day 8 of 14
 
 ---
 
-## SLIDE 4: The Buzzer
+## SLIDE 4:
 **Visual Design**
 - A simple, clean isometric render of a small black piezo buzzer.
 - A wiring diagram is shown next to it: one wire to a GPIO pin, the other to a Ground (GND) pin on the Pi.
@@ -65,11 +65,11 @@ Day 8 of 14
 - **BODY:**
   - A simple electronic component that makes noise when it receives power.
   - We will connect it directly to the GPIO pins.
-- **JUPYTER TRANSITION:** Section 2 - GPIO Basics.
+- **JUPYTER:** Section 2 - GPIO Basics.
 
 ---
 
-## SLIDE 5: Basic GPIO Control
+## SLIDE 5:
 **Visual Design**
 - A simplified animation concept.
 - A line of code `api.buzzer_on()` is shown. This triggers an isometric render of a GPIO pin to light up in Electric Blue (#44B6E5), and a connected LED to turn on.
@@ -86,7 +86,7 @@ Day 8 of 14
 
 ---
 
-## SLIDE 6: Detection + Action
+## SLIDE 6:
 **Visual Design**
 - A clean flowchart representing the core logic.
 - (Diamond) "Object Detected?" -> [Yes] -> (Diamond) "Confidence > 0.8?" -> [Yes] -> (Rectangle) "BEEP".
@@ -98,7 +98,7 @@ Day 8 of 14
   - The core of our system is a simple `if` statement:
   - `if object is a 'person' and confidence is high:`
   - `....trigger the buzzer`
-- **JUPYTER TRANSITION:** Section 3 - Detection Alerts.
+- **JUPYTER:** Section 3 - Detection Alerts.
 
 ---
 
@@ -116,7 +116,7 @@ Day 8 of 14
 
 ---
 
-## SLIDE 8: Cooldown Logic
+## SLIDE 8:
 **Visual Design**
 - An animation concept showing a timeline.
 - A detection event occurs at T=0, triggering a beep.
@@ -134,7 +134,7 @@ Day 8 of 14
 
 ---
 
-## SLIDE 9: Custom Patterns
+## SLIDE 9:
 **Visual Design**
 - A Python dictionary is shown as a 3D object.
 - It maps text labels to musical note icons.
@@ -148,11 +148,11 @@ Day 8 of 14
   - We can create unique audio signatures for different objects.
     - **Person:** Two short beeps.
     - **Car:** A long, low tone.
-- **JUPYTER TRANSITION:** Section 4 - Custom Patterns.
+- **JUPYTER:** Section 4 - Custom Patterns.
 
 ---
 
-## SLIDE 10: Complete Pipeline
+## SLIDE 10:
 **Visual Design**
 - A final, complete flowchart combining all concepts.
 - Detection -> Filter by Label -> Filter by Confidence -> Check Cooldown -> Trigger Custom Pattern.
@@ -166,7 +166,7 @@ Day 8 of 14
 
 ---
 
-## SLIDE 11: Real World Examples
+## SLIDE 11:
 **Visual Design**
 - A grid of two icons.
 - 1. A security camera with motion detection rings.
@@ -182,7 +182,7 @@ Day 8 of 14
 
 ---
 
-## SLIDE 12: Your Turn
+## SLIDE 12:
 **Visual Design**
 - An isometric render of the full skateboard system.
 - The buzzer is glowing with Electric Blue (#44B6E5) soundwaves, and the AI camera is actively scanning.
@@ -193,4 +193,4 @@ Day 8 of 14
 - **BODY:**
   - Complete the exercises in your notebook.
   - Create your own custom alert patterns for different objects.
-- **MISSION:** Section 5 - Knowledge Check.
+- **Jupyter:** Section 5 - Knowledge Check.
