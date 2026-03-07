@@ -1,8 +1,4 @@
 # MODULE 9
-System Integration
-AI Meets Motor Control
-Lectec PEV AI Curriculum
-Day 9 of 14
 
 ## STYLE MANIFESTO: BLUEPRINT FUTURISM
 - **Color Palette:** STRICT White background, Solid Black text, Electric Blue (#44B6E5) accents.
@@ -12,21 +8,19 @@ Day 9 of 14
 
 ---
 
-## SLIDE 1: Title Slide
+## SLIDE 1: 
 **Visual Design**
-- A central, glowing Electric Blue (#44B6E5) "plus" symbol.
+- A glowing Electric Blue (#44B6E5) "plus" symbol.
 - On the left, a monochromatic icon representing the CAN bus (a network diagram).
-- On the right, a monochromatic icon representing AI vision (a camera with a neural network inside).
+- On the right, a monochromatic icon representing AI vision (a sony IMX500 with a neural network inside).
 - Faint isometric grid background.
 
 **Text Content**
 - **DISPLAY HEADER:** MODULE 9: SYSTEM INTEGRATION
 - **SUBTEXT:** Creating a Truly Smart System
-- **BOTTOM FOOTER:** Lectec PEV AI Curriculum | Day 9 of 14
-
 ---
 
-## SLIDE 2: TODAY'S GOAL
+## SLIDE 2:
 **Visual Design**
 - An isometric animation concept.
 - **Scene 1:** AI camera detects a person, but the skateboard is stationary (RPM=0). No alert and bounded brake intervention is shown.
@@ -38,11 +32,10 @@ Day 9 of 14
 - **BODY:**
   - Today, you will build a system that understands context.
   - It will only trigger an alert and bounded brake intervention when a potential hazard is detected **AND** the vehicle is in motion.
-- **CALLOUT:** "In 40 minutes, you will build a system that makes intelligent decisions."
 
 ---
 
-## SLIDE 3: Review: What We Have
+## SLIDE 3:
 **Visual Design**
 - A two-column layout.
 - **Left Column:** A 3D render of the VESC, labeled "CAN SYSTEM" with a sub-label "Knows: HOW FAST".
@@ -57,7 +50,7 @@ Day 9 of 14
 
 ---
 
-## SLIDE 4: Why Combine?
+## SLIDE 4:
 **Visual Design**
 - A simple illustration showing a person standing in front of a parked car. The scene is labeled "SAFE".
 - Another illustration shows a person walking in front of a moving car. The scene is labeled "DANGEROUS".
@@ -73,7 +66,7 @@ Day 9 of 14
 
 ---
 
-## SLIDE 5: Sensor Fusion
+## SLIDE 5:
 **Visual Design**
 - A diagram showing two data streams (one from a camera, one from a motor) flowing into a central "Logic Core" block.
 - From the Logic Core, a single, refined "Decision" stream flows out.
@@ -87,7 +80,7 @@ Day 9 of 14
 
 ---
 
-## SLIDE 6: How Cars Do It
+## SLIDE 6: 
 **Visual Design**
 - An isometric cutaway of a modern car (like a Tesla).
 - It shows multiple sensor inputs: Cameras (vision), Radar (radio waves), and Lidar (lasers).
@@ -104,7 +97,7 @@ Day 9 of 14
 
 ---
 
-## SLIDE 7: Integration Architecture
+## SLIDE 7:
 **Visual Design**
 - A Python-centric flowchart.
 - **Block 1:** `vesc_api = VESCStudentAPI()`
@@ -120,11 +113,11 @@ Day 9 of 14
   - Buzzer control should come from `ai_api.start_buzzer()` and `ai_api.buzzer_beep(...)` so notebook reruns do not leave GPIO pins locked.
   - Inside our main loop, we will query both systems.
   - The core of our program will be a multi-condition `if` statement.
-- **JUPYTER TRANSITION:** Section 2 - Combining Data.
+- **JUPYTER:** Section 2 - Combining Data.
 
 ---
 
-## SLIDE 8: Conditional Logic
+## SLIDE 8:
 **Visual Design**
 - A simple, bold representation of the core `if` statement.
 - `IF ( 'person' is detected ) AND ( rpm > 1000 ):`
@@ -135,11 +128,11 @@ Day 9 of 14
 - **BODY:**
   - This is the key to our system.
   - The `and` keyword in Python ensures that the code inside the `if` block *only* runs when **both** conditions are true.
-- **JUPYTER TRANSITION:** Section 3 - Conditional Safety Logic.
+- **JUPYTER:** Section 3 - Conditional Safety Logic.
 
 ---
 
-## SLIDE 9: Safety Levels
+## SLIDE 9:
 **Visual Design**
 - A three-level pyramid.
 - **Base (Widest):** "Level 1: Monitor" (Low Speed)
@@ -156,7 +149,7 @@ Day 9 of 14
 
 ---
 
-## SLIDE 10: Data Freshness
+## SLIDE 10:
 **Visual Design**
 - A timeline graphic.
 - At T=0, the camera detects a person.
@@ -172,7 +165,7 @@ Day 9 of 14
 
 ---
 
-## SLIDE 11: Real Car Comparison
+## SLIDE 11:
 **Visual Design**
 - A diagram of a car's AEB (Automatic Emergency Braking) system.
 - It shows the system detecting a pedestrian and automatically applying the brakes.
@@ -186,7 +179,7 @@ Day 9 of 14
 
 ---
 
-## SLIDE 12: Your Turn
+## SLIDE 12:
 **Visual Design**
 - A final isometric render of the full skateboard system.
 - Both the CAN bus wires and the AI Camera lens are glowing in Electric Blue (#44B6E5), with their glow merging at the Raspberry Pi.
@@ -196,4 +189,4 @@ Day 9 of 14
 - **BODY:**
   - Complete the exercises in your notebook.
   - You will initialize both APIs and create a true sensor fusion system.
-- **MISSION:** Section 5 - Knowledge Check.
+- **JUPYTER:** Section 5 - Knowledge Check.
