@@ -1,43 +1,32 @@
-# MODULE 12
-ADAS Theory: The Math Behind Safety
-Calculating Time-to-Collision
-Lectec PEV AI Curriculum
-Day 12 of 14
+# MODULE 21
 
-## STYLE MANIFESTO: BLUEPRINT FUTURISM
-- **Color Palette:** STRICT White background, Solid Black text, Electric Blue (#44B6E5) accents.
-- **Typography:** Space Grotesk (Display sizes for headers).
-- **Imagery:** 3D Isometric Technical Renders. Monochromatic clay-render style with #44B6E5 "energy glows" on highlights.
-- **Background:** Faint, thin-line isometric white grid.
+Style Manifesto: Professional "Blueprint Futurism" for Lectec STEM Kits. Color Palette: STRICT White background, Solid Black text, and Electric Blue (#44B6E5) for accents. No gradients, no extra colors. Typography: Space Grotesk. Use "Display" sizes for headers (very large). All body text must be aligned to a strict vertical grid. Imagery Requirements:
 
----
+Subject: 3D Isometric Technical Renders.
 
-## TEACHER'S GUIDE: MODULE 12 OVERVIEW
+Visual Quality: Monochromatic clay-render style with #44B6E5 "energy glows" or highlights on specific components (like a wheel or motor).
 
-**Module Goal:** To teach students the fundamental algorithm behind Forward Collision Warning (FCW): the Time-to-Collision (TTC) calculation. This module is heavy on theory and mathematics, translating abstract concepts into concrete Python functions.
+Background: A faint, thin-line isometric white grid must be visible across the entire slide.
 
-**Lesson Structure:**
-- **(5 min) Introduction:** Start with a simple, real-world question: "If a car is 100 feet away and traveling towards you at 50 feet per second, how long until it reaches you?" This is TTC. Explain that today, they will build a calculator for this.
-- **(15 min) Lecture:** Use the slides to walk through the core concepts: Distance Estimation from pixels, Speed from RPM, the TTC formula, and the concept of alert thresholds.
-- **(20 min) Workshop:** Students work through the `12_ADAS_Theory.ipynb`. This is a math-heavy notebook, so be prepared to assist with the formula implementation.
-- **(5 min) Wrap-up:** Discuss the concepts of false positives vs. false negatives and why sensor fusion is critical for reliable results.
+Execution: High-end architectural visualization style. No "clipart," no photos, and strictly no logos. Slide Composition: > 
+
+Use "Rule of Thirds": Place a large 3D component on one third of the slide, and text on the opposite third. Leave the middle third as empty white space.
+
+Follow these slide contents exactly:
 
 ---
 
-## SLIDE 1: Title Slide
+## SLIDE 1:
 **Visual Design**
-- An isometric blueprint showing a mathematical formula `TTC = Distance / Speed`.
-- The formula is rendered in a clean, technical font and glows with an Electric Blue (#44B6E5) light.
+- A diagram illustrates the concept of Time to Collision (TTC) between a moving Lectec electric scooter and a stationary person. A dotted line, labeled 'DISTANCE' in text, connects the scooter and the person. The scooter is shown in motion glowing in Electric Blue (#44B6E5), with dotted line leading to a lebel 'SPEED'. The TTC formula (TTC = Distance / Speed) is displayed above the elements.
 - Faint isometric grid background.
 
 **Text Content**
-- **DISPLAY HEADER:** MODULE 12: ADAS THEORY
+- **DISPLAY HEADER:** MODULE 21: ADAS THEORY
 - **SUBTEXT:** The Math Behind Safety Systems
-- **BOTTOM FOOTER:** Lectec PEV AI Curriculum | Day 12 of 14
-
 ---
 
-## SLIDE 2: TODAY'S GOAL
+## SLIDE 2: 
 **Visual Design**
 - A 3D isometric render of a calculator.
 - The inputs are "Distance: 10m" and "Speed: 5 m/s".
@@ -48,11 +37,10 @@ Day 12 of 14
 - **BODY:**
   - Today, you will build a working Time-to-Collision (TTC) calculator.
   - You will understand the core algorithm that powers every modern Forward Collision Warning system.
-- **CALLOUT:** "In 40 minutes, you will know how to predict the future."
 
 ---
 
-## SLIDE 3: Forward Collision Warning (Review)
+## SLIDE 3:
 **Visual Design**
 - A simple icon showing a car with a "!" warning symbol in front of it.
 - The "!" is Electric Blue (#44B6E5).
@@ -66,7 +54,7 @@ Day 12 of 14
 
 ---
 
-## SLIDE 4: The Core Problem
+## SLIDE 4:
 **Visual Design**
 - An illustration of a car driving towards a pedestrian.
 - Two large question marks are shown. One points to the space between the car and pedestrian, labeled "DISTANCE?". The other points to the car's speedometer, labeled "SPEED?".
@@ -80,7 +68,7 @@ Day 12 of 14
 
 ---
 
-## SLIDE 5: Distance Estimation
+## SLIDE 5: 
 **Visual Design**
 - A diagram showing a person far away (small bounding box) and the same person up close (large bounding box).
 - An inverse relationship is shown: "Box Height ↑, Distance ↓".
@@ -92,11 +80,11 @@ Day 12 of 14
   - We don't have a laser ruler. We have a camera.
   - We can **estimate** distance by using the size of the object's bounding box.
   - An object that appears larger (a taller bounding box) is closer than one that appears smaller.
-- **JUPYTER TRANSITION:** Section 2 - Distance Estimation.
+- **JUPYTER:** Section 2 - Distance Estimation.
 
 ---
 
-## SLIDE 6: Speed: We Know This!
+## SLIDE 6:
 **Visual Design**
 - An icon of the VESC motor controller.
 - An arrow points from it to a speedometer icon, with the text "RPM -> km/h" in the middle.
@@ -111,7 +99,7 @@ Day 12 of 14
 
 ---
 
-## SLIDE 7: Time-to-Collision Formula
+## SLIDE 7:
 **Visual Design**
 - The core formula presented in large, bold, blueprint-style text.
 - `TTC (seconds) = Distance (meters) / Closing Speed (meters/second)`
@@ -126,7 +114,7 @@ Day 12 of 14
 
 ---
 
-## SLIDE 8: TTC Example
+## SLIDE 8:
 **Visual Design**
 - A simple animation concept.
 - A car is shown 10 meters away from an obstacle. Its speed is 5 m/s.
@@ -142,7 +130,7 @@ Day 12 of 14
 
 ---
 
-## SLIDE 9: Alert Thresholds
+## SLIDE 9:
 **Visual Design**
 - A "danger meter" graphic, like a tachometer's redline.
 - **0-1s:** Red zone, labeled "CRITICAL".
@@ -157,11 +145,11 @@ Day 12 of 14
     - **> 3 seconds:** Safe. Just keep monitoring.
     - **1 to 3 seconds:** High alert. A warning should be issued.
     - **< 1 second:** Critical danger. An immediate, loud alert is needed.
-- **JUPYTER TRANSITION:** Section 4 - TTC Mapping for Brake Intervention.
+- **JUPYTER:** Section 4 - TTC Mapping for Brake Intervention.
 
 ---
 
-## SLIDE 10: Sensor Fusion Concept (Review)
+## SLIDE 10:
 **Visual Design**
 - The sensor fusion diagram from Module 9 is shown again.
 - Camera data and VESC data flow into the "Logic Core" where the TTC is calculated.
@@ -176,7 +164,7 @@ Day 12 of 14
 
 ---
 
-## SLIDE 11: Fusion Benefits
+## SLIDE 11:
 **Visual Design**
 - Two scenarios side-by-side.
 - **Left:** "CAMERA ONLY" - Shows a picture of a distant car. Text: "I see a car, but is it a threat?"
@@ -191,7 +179,7 @@ Day 12 of 14
 
 ---
 
-## SLIDE 12: False Positives
+## SLIDE 12:
 **Visual Design**
 - An illustration of a car driving towards a harmless plastic bag floating across the road.
 - The car's system is shown incorrectly triggering a loud "DANGER!" alert.
@@ -205,7 +193,7 @@ Day 12 of 14
 
 ---
 
-## SLIDE 13: False Negatives
+## SLIDE 13:
 **Visual Design**
 - An illustration of a car driving towards a real pedestrian who is partially obscured by a bush.
 - The car's system is shown being silent, with no alert. This is the more dangerous scenario.
@@ -219,7 +207,7 @@ Day 12 of 14
 
 ---
 
-## SLIDE 14: The Tradeoff
+## SLIDE 14:
 **Visual Design**
 - A balancing scale.
 - On one side is a "Warning" icon with the text "Annoying but Safe" (False Positives).
@@ -236,7 +224,7 @@ Day 12 of 14
 
 ---
 
-## SLIDE 15: Your Turn
+## SLIDE 15:
 **Visual Design**
 - An isometric render of a student's hands coding the TTC formula in a Jupyter Notebook.
 - The formula in the code glows Electric Blue (#44B6E5).
@@ -246,13 +234,4 @@ Day 12 of 14
 - **BODY:**
   - Open `12_ADAS_Theory.ipynb`.
   - You will implement distance, TTC, and TTC-to-brake mapping helpers.
-- **MISSION:** Create the core FCW math and TTC-driven intervention mapping.
-
-
----
-
-## TTC-to-Brake Mapping Addendum
-- Teach a deterministic mapping from TTC to intervention parameters.
-- `ttc_to_brake_time(ttc_s)` maps to `3.0..10.0s`.
-- `ttc_to_brake_current(ttc_s)` maps to `2.0..10.0A`.
-- Reinforce monotonic policy: lower TTC -> shorter ramp time + higher current.
+- **JUPYTER:** Create the core FCW math and TTC-driven intervention mapping.
