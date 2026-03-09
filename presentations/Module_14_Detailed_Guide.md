@@ -1,43 +1,33 @@
-# MODULE 14
-ADAS Capstone Project
-Designing an Advanced ADAS Feature
-Lectec PEV AI Curriculum
-Day 14 of 14
+# MODULE 23
 
-## STYLE MANIFESTO: BLUEPRINT FUTURISM
-- **Color Palette:** STRICT White background, Solid Black text, Electric Blue (#44B6E5) accents.
-- **Typography:** Space Grotesk (Display sizes for headers).
-- **Imagery:** 3D Isometric Technical Renders. Monochromatic clay-render style with #44B6E5 "energy glows" on highlights.
-- **Background:** Faint, thin-line isometric white grid.
+Style Manifesto: Professional "Blueprint Futurism" for Lectec STEM Kits. Color Palette: STRICT White background, Solid Black text, and Electric Blue (#44B6E5) for accents. No gradients, no extra colors. Typography: Space Grotesk. Use "Display" sizes for headers (very large). All body text must be aligned to a strict vertical grid. Imagery Requirements:
 
+Subject: 3D Isometric Technical Renders.
+
+Visual Quality: Monochromatic clay-render style with #44B6E5 "energy glows" or highlights on specific components (like a wheel or motor).
+
+Background: A faint, thin-line isometric white grid must be visible across the entire slide.
+
+Execution: High-end architectural visualization style. No "clipart," no photos, and strictly no logos. Slide Composition: > 
+
+Use "Rule of Thirds": Place a large 3D component on one third of the slide, and text on the opposite third. Leave the middle third as empty white space.
+
+Follow these slide contents exactly:
 ---
 
-## TEACHER'S GUIDE: MODULE 14 OVERVIEW
-
-**Module Goal:** This is the final capstone project. Students will design, implement, and present their own unique ADAS feature, demonstrating mastery of the entire course curriculum, from CAN bus communication to sensor fusion and AI implementation.
-
-**Lesson Structure:**
-- **(5 min) Introduction:** Frame the day as a "pitch to an automotive company." The goal is not just to build, but to present an innovative idea.
-- **(5 min) Project Options Review:** Quickly go over the advanced project options to inspire students.
-- **(25 min) Final Development Workshop:** Students work in their `14_ADAS_Capstone.ipynb` to complete their project and prepare their presentation.
-- **(10 min) Project Presentations:** Have 3-4 students give their 2-minute "pitch" to the class. Time may require a second day for full class presentations.
-
----
-
-## SLIDE 1: Title Slide
+## SLIDE 1: 
 **Visual Design**
 - A large, isometric render of a trophy, but styled as a technical blueprint.
 - The trophy is glowing with an internal Electric Blue (#44B6E5) light.
 - Faint isometric grid background.
 
 **Text Content**
-- **DISPLAY HEADER:** MODULE 14: ADAS CAPSTONE
+- **DISPLAY HEADER:** MODULE 23: ADAS CAPSTONE
 - **SUBTEXT:** Engineer Your Own Safety Feature
-- **BOTTOM FOOTER:** Lectec PEV AI Curriculum | Day 14 of 14
 
 ---
 
-## SLIDE 2: TODAY'S GOAL
+## SLIDE 2:
 **Visual Design**
 - An isometric scene of a student presenting their idea on a holographic screen to a group of engineers (represented by stylized figures).
 - The presentation on the screen shows a flowchart of their custom ADAS feature.
@@ -47,11 +37,10 @@ Day 14 of 14
 - **BODY:**
   - Today, you will use the full range of your skills to design, build, and present a novel ADAS feature.
   - You will think about a real-world safety problem and engineer a creative solution.
-- **CALLOUT:** "Your final project begins now."
 
 ---
 
-## SLIDE 3: Project Options
+## SLIDE 3:
 **Visual Design**
 - A grid of three advanced, monochromatic icons.
 - **Icon A:** A car with predictive path lines extending forward.
@@ -68,7 +57,7 @@ Day 14 of 14
 
 ---
 
-## SLIDE 4: Project Requirements
+## SLIDE 4:
 **Visual Design**
 - A blueprint-style checklist. Each item has a square checkbox.
 - The checkboxes are highlighted in Electric Blue (#44B6E5).
@@ -84,7 +73,7 @@ Day 14 of 14
 
 ---
 
-## SLIDE 5: Presentation Format
+## SLIDE 5:
 **Visual Design**
 - A simple, clean timer icon with a "5 MINUTE PITCH" label.
 - The label is in Electric Blue (#44B6E5).
@@ -95,12 +84,12 @@ Day 14 of 14
   - You have 5 minutes to present your project as if you were pitching it to automotive executives.
     - **1 min:** What is the problem?
     - **1 min:** What is your solution?
-    - **2 min:** Live Demonstration.
+    - **2 min:** Live Mock Demonstration.
     - **1 min:** Future Improvements.
 
 ---
 
-## SLIDE 6: Your Turn
+## SLIDE 6:
 **Visual Design**
 - An open, empty Jupyter Notebook is shown in isometric 3D, similar to Module 10 but with "ADAS Capstone" in the header.
 - A blinking cursor, glowing in Electric Blue (#44B6E5), waits in the first code cell.
@@ -111,13 +100,3 @@ Day 14 of 14
   - Open `14_ADAS_Capstone.ipynb`.
   - For buzzer alerts, use the `AIStudentAPI` buzzer helpers instead of creating raw `gpiozero.Buzzer` instances.
   - Design your system, write the code, and document your process.
-- **MISSION:** Demonstrate complete mastery of the Lectec curriculum.
-
-
----
-
-## Capstone Evaluation Addendum
-- Add explicit scoring for intervention policy quality:
-  - TTC mapping clarity
-  - bounded parameter usage
-  - cooldown and edge-case handling
